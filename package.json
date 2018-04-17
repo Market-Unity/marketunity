@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/th0s/Market-Unity#readme",
   "dependencies": {
-    "bcrypt": "^2.0.0",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "eslint": "^4.19.1",
     "express": "^4.16.3",

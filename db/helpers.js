@@ -1,12 +1,14 @@
 const models = require('./models');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
-const newUser = (username, password) => {
 
-};
+// TODO: Create Register Function Helper Here
+// const register = (username, password) => {
+  
+// };
 
 
 
 module.exports = {
-  newUser
+  register
 };
