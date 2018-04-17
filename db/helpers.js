@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt-nodejs');
 
 
 // TODO: Create Register Function Helper Here
-// const register = (username, password) => {
-  
-// };
+const register = (username, password) => {
+
+};
 
 
 
