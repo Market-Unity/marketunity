@@ -1,8 +1,10 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const helpers = require('./db/helpers.js');
 
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
 
 
