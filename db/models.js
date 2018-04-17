@@ -12,5 +12,7 @@ const userSchema = new Schema({
 
 const newUser = new userSchema(userObj);
 
-module.exports = userSchema;
-module.exports = newUser;
+module.exports = {
+  newUser,
+  userSchema
+};
