@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/th0s/Market-Unity#readme",
   "dependencies": {
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
     "mongo": "^0.1.0",
     "mongoose": "^5.0.14",
+    "npm": "^5.8.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1"
   },
