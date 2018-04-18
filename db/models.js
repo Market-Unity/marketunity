@@ -10,9 +10,8 @@ const userSchema = new Schema({
   favorites: Array,
 });
 
-const newUser = new userSchema(userObj);
+//const newUser = new userSchema(userObj);
 
 module.exports = {
-  newUser,
   userSchema
 };
