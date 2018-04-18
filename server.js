@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const helpers = require('./db/helpers.js');
-
+const User = require('./db/models').newUser;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
@@ -17,23 +17,23 @@ app.listen(1337, function() {
   console.log('App listening on port 1337');
 });
 
-
 /* 
   TO DO LIST
   1. Create function to create session
   2. Create function to check is uer exists in db
-
-
 */
 
 /***********************************************************************/
-/***********************************************************************/
 /************************* Register Routes *****************************/
 /***********************************************************************/
-/***********************************************************************/
 
-app.post('/register', function(request, response) {
+app.post('/register', function(req, res) {
   //parse the username and password
+  res.end(JSON.stringify(req.body));
+
+  var something = new User(req.body.username, req.body.password);
+
+  
 
   //generate new user
   //then promise
