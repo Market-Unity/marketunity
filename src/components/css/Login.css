@@ -1,0 +1,3 @@
+#root > div > form:nth-child(2) {
+  width:20%;
+}
