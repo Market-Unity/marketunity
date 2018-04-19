@@ -42,7 +42,9 @@ app.post('/register', function(req, res) {
   };
 
   helpers.register(user, (err, data) => {
-    if (err) { console.log('There was a DB insertion error: ', err); }
+    if (err) {
+      data = err;
+    }
     res.end(JSON.stringify(data));
   });
 

@@ -7,4 +7,6 @@ const userSchema = new Schema({
   favorites: Array,
 });
 
-mongoose.model('User', userSchema);
+const model = mongoose.model('User', userSchema);
+
+module.exports = model;
