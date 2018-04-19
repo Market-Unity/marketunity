@@ -1,10 +1,14 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+var db = require('./data/db/connection');
+var helpers = require('./data/db/helpers');
 
 
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
-
+app.use(bodyParser.urlencoded({ extended: false}));
 
 app.get('/', function(request, response) {
   response.send('sup');
@@ -30,7 +34,18 @@ app.listen(1337, function() {
 /***********************************************************************/
 /***********************************************************************/
 
-app.post('/register', function(request, response) {
+app.post('/register', function(req, res) {
+
+  const user = {
+    username: req.body.username,
+    password: req.body.password
+  };
+
+  helpers.register(user, (err, data) => {
+    if (err) { console.log('There was a DB insertion error: ', err); }
+    res.end(JSON.stringify(data));
+  });
+
   //parse the username and password
 
   //generate new user
