@@ -41,11 +41,12 @@ app.post('/register', function(req, res) {
     password: req.body.password
   };
 
+  let userCreated = false;
   helpers.register(user, (err, data) => {
-    if (err) {
-      data = err;
+    if (err) { console.log( err ); } else {
+      userCreated = true;
+      res.end(JSON.stringify('User created!'));
     }
-    res.end(JSON.stringify(data));
   });
 
   //parse the username and password
@@ -72,14 +73,23 @@ app.post('/register', function(req, res) {
 
 //render login page on request
 app.get('/login', function(request, response) {
-  response.render('login');
+
 
 });
 
 //post username and password to db
-app.post('/login', function(request, response) {
+app.post('/login', function(req, res) {
   //var username = request.body.username;
   //var password = request.body.password;
+  const user = {
+    username: req.body.username,
+    password: req.body.password
+  };
+
+  helpers.authCheck(user, (err, data) => {
+    if (err) { console.log(err); }
+    console.log(data);
+  });
 
   //add code to create users and such and interface with bcrypt
   //create new user
