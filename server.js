@@ -8,6 +8,8 @@ const bestBuy = require('./bestbuy.js');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
 
+app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
+app.use(bodyParser.urlencoded({ extended: false}));
 
 app.get('/', function(request, response) {
   response.send('sup');
@@ -70,14 +72,30 @@ app.post('/register', function(req, res) {
 
 //render login page on request
 app.get('/login', function(request, response) {
-  response.render('login');
+
 
 });
 
 //post username and password to db
-app.post('/login', function(request, response) {
+app.post('/login', function(req, res) {
   //var username = request.body.username;
   //var password = request.body.password;
+  const user = {
+    username: req.body.username,
+    password: req.body.password
+  };
+
+  helpers.userAvailable(user, (err, data) => {
+    console.log(data);
+  });
+
+  // helpers.authCheck(user, (err, data) => {
+  //   if (err) { console.log(err); }
+  //   if (data === false) {
+  //     res.end('Login failed. Invalid Username/Password.');
+  //   }
+  //   res.end('Login successful!');
+  // });
 
   //add code to create users and such and interface with bcrypt
   //create new user

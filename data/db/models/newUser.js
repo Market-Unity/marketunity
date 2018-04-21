@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
-
 const Schema = mongoose.Schema;
-const SALT_ROUNDS = 10;
 
 const userSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
@@ -10,8 +7,6 @@ const userSchema = new Schema({
   favorites: Array,
 });
 
-//const newUser = new userSchema(userObj);
+const model = mongoose.model('User', userSchema);
 
-module.exports = {
-  userSchema
-};
+module.exports = model;
