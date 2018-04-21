@@ -41,11 +41,12 @@ app.post('/register', function(req, res) {
     password: req.body.password
   };
 
-  let userCreated = false;
   helpers.register(user, (err, data) => {
-    if (err) { console.log( err ); } else {
-      userCreated = true;
-      res.end(JSON.stringify('User created!'));
+    if (err) { res.end(JSON.stringify(err)); }
+    if (data === false) { 
+      res.end('Username taken. Please enter unique username');
+    } else {
+      res.end(`New User ${user.username} created!`);
     }
   });
 
@@ -86,10 +87,17 @@ app.post('/login', function(req, res) {
     password: req.body.password
   };
 
-  helpers.authCheck(user, (err, data) => {
-    if (err) { console.log(err); }
+  helpers.userAvailable(user, (err, data) => {
     console.log(data);
   });
+
+  // helpers.authCheck(user, (err, data) => {
+  //   if (err) { console.log(err); }
+  //   if (data === false) {
+  //     res.end('Login failed. Invalid Username/Password.');
+  //   }
+  //   res.end('Login successful!');
+  // });
 
   //add code to create users and such and interface with bcrypt
   //create new user
