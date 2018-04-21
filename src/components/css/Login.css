@@ -1,3 +1,10 @@
-#root > div > form:nth-child(2) {
-  width:20%;
+@media all and (min-width: 300px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 150px;
+  }
 }
