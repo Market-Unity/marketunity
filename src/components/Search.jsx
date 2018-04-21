@@ -15,7 +15,7 @@ export default class Search extends React.Component {
           <Input type="search" name="search" id="search" placeholder="search" onChange = {this.props.handleQuery}/>
         </FormGroup>
         {' '}
-        <Button>Submit</Button>
+        <Button color="primary">Submit</Button>
       </Form>
     );
   }
