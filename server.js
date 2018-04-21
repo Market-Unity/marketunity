@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const helpers = require('./db/helpers.js');
 const User = require('./db/models').newUser;
+const bestBuy = require('./bestbuy.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
@@ -22,6 +23,18 @@ app.listen(1337, function() {
   1. Create function to create session
   2. Create function to check is uer exists in db
 */
+
+/***********************************************************************/
+/********************** BestBuy Search Route ***************************/
+/***********************************************************************/
+
+app.get('/search', function(req, res) {
+  var searchTerm = req.body.searchTerm;
+  var bestBuyArr = bestBuy(searchTerm);
+
+});
+
+
 
 /***********************************************************************/
 /************************* Register Routes *****************************/
