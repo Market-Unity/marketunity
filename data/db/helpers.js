@@ -3,15 +3,13 @@ const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
 
 
-// Register a new User
+// Register a new User. Will return boolean for user creation.
 const register = ({ username, password }, cb) => {
-  let userTaken = true;
   // Checks if username is taken
-  let hold = JSON.stringify(checkUser(username, (err, data) => {
+  let hold = JSON.stringify(userAvailable(username, (err, available) => {
     if (err) { console.log('Error in Mongo Find func', err); }
-    userTaken = JSON.stringify(data) !== '[]';
-    
-    if (userTaken === false) {
+        
+    if (available === true) {
       // Hashing Password Here
       hashPass(password, (err, hash) => {
         let createUser = new newUser({
@@ -24,27 +22,29 @@ const register = ({ username, password }, cb) => {
             console.log('There was a DB insertion error: ', err);
             cb(err, null);
           }
+          data = available;
           cb(null, data);
         });
       });
     } else {
-      err = 'Username taken!';
+      data = available;
       cb(err, data);
     }
   }));
 };
 
-  // Checks if username is taken
-const checkUser = (username, cb) => {
+  // Checks if username is already in DB
+const userAvailable = ({ username }, cb) => {
   newUser.find({
     username: username
   }, (err, data) => {
     if (err) { cb(err, null); }
+    if (JSON.stringify(data) === '[]') { data = true; } else { data = false; }
     cb(null, data);
   });
 };
 
-// Hash Password
+// Hash Password. Will return hash.
 const hashPass = (password, cb) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(password, salt, null, (err, hash) => {
@@ -54,6 +54,8 @@ const hashPass = (password, cb) => {
   });
 };
 
+
+// Authenticate Passwords. Will return boolean. 
 const authCheck = ({ username, password }, cb) => {
   let dbHash = '';
   let passHash = '';
@@ -67,30 +69,24 @@ const authCheck = ({ username, password }, cb) => {
       cb(err, null);
     }
 
-    dbHash = JSON.stringify(data[0].password);
+    dbHash = data[0].password;
 
-    console.log(dbHash, '<<<<====== dbHash');
-    hashPass(password, (err, data) => {
-      passHash = JSON.stringify(data);
-
-      console.log(passHash, '<<<<====== passHash');
-    });
-
-    bcrypt.compare(dbHash, passHash, (err, result) => {
+    bcrypt.compare(password, dbHash, (err, result) => {
       if (err) { 
         console.log('There was a hashing error: ', err);
         cb(err, null);
       }
       authenticated = result;
-      console.log(authenticated);
       cb(null, authenticated);
     });
   });
 };
 
+// Imp Session System
+
 
 module.exports = {
   register,
-  checkUser,
+  userAvailable,
   authCheck
 };
