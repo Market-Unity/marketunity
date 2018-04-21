@@ -84,21 +84,24 @@ app.post('/login', function(req, res) {
       res.end('Login failed. Invalid Username/Password.');
     }
 
-    var token = jwt.sign(user.username, 'secretkey');
-
+    const token = jwt.sign(user.username, 'secretkey');
     res.json({
-      token: token
+      token: token,
+      message: 'Login successful!',
     });
 
-    res.end('Login successful!');
+
   });
 
 });
 
 app.get('/login', function(req, res) {
   jwt.verify(req.headers.token, 'secretkey', function (err, data) {
-    if (err) { res.end(JSON.stringify(err)); }
-    res.end(JSON.stringify(data));
+    if (err) { res.sendStatus(403); }
+    res.json({
+      username: data,
+      message: `Welcome back ${data}!`
+    });
   });
 });
 
