@@ -5,6 +5,7 @@ const helpers = require('./data/db/helpers.js');
 const User = require('./data/db/models/newUser.js');
 const bestBuy = require('./bestbuy.js');
 const connection = require('./data/db/connection.js');
+const jwt = require('jsonwebtoken');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,8 +72,7 @@ app.post('/register', function(req, res) {
 
 //post username and password to db
 app.post('/login', function(req, res) {
-  //var username = request.body.username;
-  //var password = request.body.password;
+
   const user = {
     username: req.body.username,
     password: req.body.password
@@ -83,9 +83,23 @@ app.post('/login', function(req, res) {
     if (data === false) {
       res.end('Login failed. Invalid Username/Password.');
     }
+
+    var token = jwt.sign(user.username, 'secretkey');
+
+    res.json({
+      token: token
+    });
+
     res.end('Login successful!');
   });
 
+});
+
+app.get('/login', function(req, res) {
+  jwt.verify(req.headers.token, 'secretkey', function (err, data) {
+    if (err) { res.end(JSON.stringify(err)); }
+    res.end(JSON.stringify(data));
+  });
 });
 
 /***********************************************************************/
