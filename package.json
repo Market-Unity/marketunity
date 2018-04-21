@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/th0s/Market-Unity#readme",
   "dependencies": {
+    "amazon-product-api": "^0.4.4",
+    "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "eslint": "^4.19.1",

@@ -1,11 +1,12 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const helpers = require('./db/helpers.js');
+const User = require('./db/models').newUser;
+const bestBuy = require('./bestbuy.js');
 
-var db = require('./data/db/connection');
-var helpers = require('./data/db/helpers');
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
 
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -19,38 +20,35 @@ app.listen(1337, function() {
   console.log('App listening on port 1337');
 });
 
-
 /* 
   TO DO LIST
   1. Create function to create session
   2. Create function to check is uer exists in db
-
-
 */
 
 /***********************************************************************/
+/********************** BestBuy Search Route ***************************/
+/***********************************************************************/
+
+app.get('/search', function(req, res) {
+  var searchTerm = req.body.searchTerm;
+  var bestBuyArr = bestBuy(searchTerm);
+
+});
+
+
+
 /***********************************************************************/
 /************************* Register Routes *****************************/
 /***********************************************************************/
-/***********************************************************************/
 
 app.post('/register', function(req, res) {
-
-  const user = {
-    username: req.body.username,
-    password: req.body.password
-  };
-
-  helpers.register(user, (err, data) => {
-    if (err) { res.end(JSON.stringify(err)); }
-    if (data === false) { 
-      res.end('Username taken. Please enter unique username');
-    } else {
-      res.end(`New User ${user.username} created!`);
-    }
-  });
-
   //parse the username and password
+  res.end(JSON.stringify(req.body));
+
+  var something = new User(req.body.username, req.body.password);
+
+  
 
   //generate new user
   //then promise

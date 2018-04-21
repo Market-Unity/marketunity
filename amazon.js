@@ -1,24 +1,16 @@
-var amazon = require('amazon');
+var amazon = require('amazon-product-api');
+var apiKey = require('/.apiKeys.js');
 
 var client = amazon.createClient({
-  awsId: "aws ID",
-  awsSecret: "aws Secret",
-  awsTag: "aws Tag"
+  awsId: apiKey.amazon.awsId,
+  awsSecret: apiKey.amazon.awsSecret,
+  awsTag: ''
 });
 
 client.itemSearch({
-  director: 'Quentin Tarantino',
-  actor: 'Samuel L. Jackson',
-  searchIndex: 'DVD',
-  audienceRating: 'R',
-  responseGroup: 'ItemAttributes,Offers,Images'
-}, function(err, results, response) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(results);  // products (Array of Object) 
-    console.log(response); // response (Array where the first element is an Object that contains Request, Item, etc.) 
-  }
+  keywords: 'Harry Potter'
+}).then(function(results) {
+  console.log(results);
+}).catch(function(err) {
+  console.log('------>', err);
 });
-
-//https://docs.aws.amazon.com/AWSECommerceService/latest/DG/becomingAssociate.html
