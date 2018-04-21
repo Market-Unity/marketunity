@@ -34,13 +34,19 @@ const register = ({ username, password }, cb) => {
 };
 
   // Checks if username is already in DB
-const userAvailable = ({ username }, cb) => {
+const userAvailable = (username, cb) => {
+  let hash = '';
   newUser.find({
     username: username
   }, (err, data) => {
     if (err) { cb(err, null); }
-    if (JSON.stringify(data) === '[]') { data = true; } else { data = false; }
-    cb(null, data);
+    if (JSON.stringify(data) === '[]') {
+      data = true; 
+    } else {
+      hash = data[0].password;
+      data = false;
+    }
+    cb(null, data, hash);
   });
 };
 
@@ -62,14 +68,14 @@ const authCheck = ({ username, password }, cb) => {
   let authenticated = false;
 
   // If User Exist, Get Hash
-  checkUser(username, (err, data) => {
+  userAvailable(username, (err, data, hash) => {
     if (err) { 
       err = 'Username does not exist!'; 
       console.log(err);
       cb(err, null);
     }
 
-    dbHash = data[0].password;
+    dbHash = hash;
 
     bcrypt.compare(password, dbHash, (err, result) => {
       if (err) { 

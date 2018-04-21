@@ -1,15 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const helpers = require('./db/helpers.js');
-const User = require('./db/models').newUser;
+const helpers = require('./data/db/helpers.js');
+const User = require('./data/db/models/newUser.js');
 const bestBuy = require('./bestbuy.js');
+const connection = require('./data/db/connection.js');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/../client/dist'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
-
-app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
-app.use(bodyParser.urlencoded({ extended: false}));
 
 app.get('/', function(request, response) {
   response.send('sup');
@@ -44,22 +43,22 @@ app.get('/search', function(req, res) {
 
 app.post('/register', function(req, res) {
   //parse the username and password
-  res.end(JSON.stringify(req.body));
+  var user = {
+    username: req.body.username,
+    password: req.body.password
+  };
 
-  var something = new User(req.body.username, req.body.password);
 
-  
+  //this function will return a boolean or error to the front end
+  helpers.register(user, function(err, successfulRegister) {
+    if (err) {
+      res.end(JSON.stringify(err));
+    } else {
+      res.end(JSON.stringify(successfulRegister));
+    }
+  });
 
-  //generate new user
-  //then promise
-  //check to see if user exists in db
-  //if not
-  //with bcrypt create user, hash password, create new session
-  //if so
-  //display some visual error message via res.end()
-  //possibly redirect to login?
-    
-
+  //TODO: Imp Sessions
 
 });
 
@@ -70,12 +69,6 @@ app.post('/register', function(req, res) {
 /***********************************************************************/
 
 
-//render login page on request
-app.get('/login', function(request, response) {
-
-
-});
-
 //post username and password to db
 app.post('/login', function(req, res) {
   //var username = request.body.username;
@@ -85,30 +78,13 @@ app.post('/login', function(req, res) {
     password: req.body.password
   };
 
-  helpers.userAvailable(user, (err, data) => {
-    console.log(data);
+  helpers.authCheck(user, (err, data) => {
+    if (err) { console.log(err); }
+    if (data === false) {
+      res.end('Login failed. Invalid Username/Password.');
+    }
+    res.end('Login successful!');
   });
-
-  // helpers.authCheck(user, (err, data) => {
-  //   if (err) { console.log(err); }
-  //   if (data === false) {
-  //     res.end('Login failed. Invalid Username/Password.');
-  //   }
-  //   res.end('Login successful!');
-  // });
-
-  //add code to create users and such and interface with bcrypt
-  //create new user
-  //fetch and promise
-  //if user is not found
-  //display error
-  //if user is found
-  //check password using bcrypt
-  //if password matches
-  //create session
-  //if password doesnt match
-  //throw error
-  //redirect to login
 
 });
 
