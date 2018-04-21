@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import Login from './components/Login.jsx';
-import Search from './components/Search.jsx';
 import Navbar from './components/Navbar.jsx';
+import Login from './components/Login.jsx';
+import SignUp from './components/SignUp.jsx';
+import Search from './components/Search.jsx';
+import ProductList from './components/ProductList.jsx';
+import { Route, Switch } from 'react-router-dom';
+import {Container} from 'reactstrap';
+
 import axios from 'axios';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -11,7 +16,16 @@ class App extends Component {
     super();
     this.state = {
       query : '',
-      products : []
+      products : [
+        {
+          name: 'Batteries',
+          url: 'www.amazon.com',
+          price: 15,
+          image: 'www.amazon.com/image',
+          description: 'Just batteries'
+        },
+        {name: 'Playstation 4', price: 300}
+      ]
     }
   }
 
@@ -31,8 +45,19 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar></Navbar>
-        <Login></Login>
-        <Search handleQuery = {this.handleQuery.bind(this)}></Search>
+        <Container>
+          <Switch>
+            <Route path='/login' component={Login}/>
+            <Route path='/signup' component={SignUp}/>
+            <Route path='/' render = {(props) =>
+              <Search handleQuery = {this.handleQuery.bind(this)}></Search>
+              }/>
+            <Route path='/' render = {(props) =>
+              <ProductList products = {this.state.products}></ProductList>
+              }/>
+            <Route path='/' component={ProductList}/>
+          </Switch>
+        </Container>
       </div>
     );
   }
