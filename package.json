@@ -21,6 +21,7 @@
     "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+    "ebay": "0.0.1",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
