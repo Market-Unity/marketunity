@@ -14,24 +14,28 @@ module.exports = function(searchString) {
     'keywords': searchString
   };
 
+  //A promise is needed here to ensure that the aggregate search function waits for this api search resolve
+  return new Promise((resolve, reject) => { 
   //returns array of 10 products in appropriate format
-  ebay.get('finding', params, function (err, data) {
-    if (err) {
-      throw err;
-    } else {
-      //finds the path to the array of items
-      let items = data.findItemsByKeywordsResponse[0].searchResult[0].item;
+    ebay.get('finding', params, function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        //finds the path to the array of items
+        let items = data.findItemsByKeywordsResponse[0].searchResult[0].item;
 
-      //returns an array of items refactored to our data structure schema
-      return items.map(item => {
-        return {
-          name: item.title[0],
-          url: item.viewItemURL[0],
-          price: item.sellingStatus[0].currentPrice[0].__value__,
-          image: item.galleryURL[0],
-          description: item.condition[0].conditionDisplayName[0]
-        };
-      });
-    }
+        //returns an array of items refactored to our data structure schema
+        let results = items.map(item => {
+          return {
+            name: item.title[0],
+            url: item.viewItemURL[0],
+            price: item.sellingStatus[0].currentPrice[0].__value__,
+            image: item.galleryURL[0],
+            description: item.condition[0].conditionDisplayName[0]
+          };
+        });
+        resolve(results);
+      }
+    });
   });
 };
