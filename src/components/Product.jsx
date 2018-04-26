@@ -1,15 +1,18 @@
 import React from 'react';
-import {Badge, ListGroupItem} from 'reactstrap';
-import "./css/Product.css"
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import "./css/ProductList.css"
+import Product from './components/Product.jsx';
 
-export default class Product extends React.Component {
+export default class ProductList extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <ListGroupItem className="justify-content-between">{this.props.product.name}<Badge pill>{this.props.product.price}</Badge></ListGroupItem>
+      <ListGroup>
+        <Product></Product>
+      </ListGroup>
     );
   }
 }

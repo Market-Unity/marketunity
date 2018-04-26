@@ -4,8 +4,13 @@
   "description": "Creating a unified online  market place.",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -d --watch"
+=======
+    "webpack": "webpack -d --watch",
+    "start": "nodemon server/server.js"
+>>>>>>> 60dca647742fde93586bc668a64aeaf7d341e938
   },
   "repository": {
     "type": "git",
@@ -18,20 +23,30 @@
   },
   "homepage": "https://github.com/th0s/Market-Unity#readme",
   "dependencies": {
-    "amazon-product-api": "^0.4.4",
     "axios": "^0.18.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.0",
+    "css-loader": "^0.28.11",
     "ebay": "0.0.1",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
+    "extract-text-webpack-plugin": "^3.0.2",
     "jsonwebtoken": "^8.2.1",
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.14",
+    "n": "^2.1.8",
     "nodemon": "^1.17.3",
     "npm": "^5.8.0",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-dom": "^16.3.1",
+    "react-router-dom": "^4.2.2",
+    "reactstrap": "^5.0.0",
+    "style-loader": "^0.21.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",

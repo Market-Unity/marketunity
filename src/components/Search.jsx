@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import "./css/Search.css"
 
 export default class Search extends React.Component {
@@ -10,10 +10,12 @@ export default class Search extends React.Component {
   render() {
     return (
       <Form inline>
+        <Col>
         <FormGroup>
-          <Label for="search" hidden>Search</Label>
-          <Input type="search" name="search" id="search" placeholder="search" onChange = {this.props.handleQuery}/>
+            <Label for="search" hidden>Search</Label>
+            <Input type="search" name="Search" id="search" placeholder="Search" onChange = {this.props.handleQuery}/>
         </FormGroup>
+        </Col>
         {' '}
         <Button color="primary">Submit</Button>
       </Form>
