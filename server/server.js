@@ -9,8 +9,13 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 
 
+
+/***********************************************************************/
+/*********** Establishing Server and Listening on Port *****************/
+/***********************************************************************/
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
@@ -24,18 +29,16 @@ app.listen(1337, function () {
 
 app.post('/search', function(req, res) {
   let searchTerm = req.body.query;
-  //returns sorted array of search results
 
+  //returns sorted array of search results
+  //waits for promise of search results before responding to client
   async function sendData(searchTerm) {
     let searchResults = await searchHelper(searchTerm);
-
     res.end(JSON.stringify(searchResults));
   }
 
   sendData(searchTerm);
 });
-
-
 
 /***********************************************************************/
 /************************* Register Route ******************************/
@@ -66,9 +69,6 @@ app.post('/register', function(req, res) {
 /************************* Login Route *********************************/
 /***********************************************************************/
 
-
-
-//post username and password to db
 app.post('/login', function(req, res) {
   
   const user = {
@@ -101,25 +101,45 @@ app.post('/login', function(req, res) {
 // });
 
 /***********************************************************************/
-/************************* Logut Route ********************************/
+/************************* Logout Route ********************************/
 /***********************************************************************/
 
 
-
-app.get('/logout', function(request, response) {
+app.get('/logout', function(req, res) {
   //destroy session function
-  //redirect to login
+
+  res.redirect('/'); 
 });
 
 /***********************************************************************/
+/************************ Save Item Route ******************************/
+/***********************************************************************/
+
+app.post('/saveitem', function(req, res) {
+  let item = req.body;
+
+  //add item to db
+
+  //send array of saved items from the db back to the client
+});
+
+/***********************************************************************/
+/************************* Unsave Item Route ***************************/
+/***********************************************************************/
+
+app.post('/unsaveitem', function (req, res) {
+  let item = req.body;
+
+  //find item from db and delete it
+
+  //send array of saved items from the db back to the client
+});
+
 /***********************************************************************/
 /************************* Wildcard Route ******************************/
 /******************* handle all orther requests ************************/
 /***********************************************************************/
 
-app.get('/*', function(request, response) {
-  //redirect to '/'
-  
-  //not sure if anything else is needed
-  
+app.get('/*', function (req, res) {
+  res.redirect('/');  
 });
