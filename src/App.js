@@ -16,8 +16,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      query : '',
-      products : [
+      query: '',
+      products: [
         {
           name: 'Samsung - Galaxy J3 with 16GB Memory Cell Phone - Silver (AT&T)',
           url: 'https://api.bestbuy.com/click/-/5887123/pdp',
@@ -40,14 +40,14 @@ class App extends Component {
           description: 'Compatible with Samsung Galaxy S8'
         }
       ],
-      favorites : []
-    }
+      favorites: []
+    };
   }
 
   handleQuery(event) {
     event.preventDefault;
     this.setState({
-      query : event.target.value
+      query: event.target.value
     });
     console.log(event.target.value);
     //POST request for searching products
@@ -70,10 +70,10 @@ class App extends Component {
                 <ProductList products = {this.state.products}></ProductList>
               </div>
 
-              }/>
+            }/>
             <Route path='/favorites' render = {(props) =>
               <FavoriteList favorites = {this.state.favorites}></FavoriteList>
-              }/>
+            }/>
           </Switch>
         </Container>
       </div>
