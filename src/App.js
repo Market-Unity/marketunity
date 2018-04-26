@@ -49,7 +49,6 @@ class App extends Component {
     this.setState({
       query: event.target.value
     });
-    console.log(this.state.query);
   }
 
   sendQuery() {
