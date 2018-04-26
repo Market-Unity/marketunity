@@ -22,11 +22,17 @@ app.listen(1337, function () {
 /***************************** Search Route ****************************/
 /***********************************************************************/
 
-app.get('/search', function(req, res) {
-  let searchTerm = req.body.searchTerm;
+app.post('/search', function(req, res) {
+  let searchTerm = req.body.query;
   //returns sorted array of search results
-  let searchResults = searchHelper(searchTerm);
-  //TODO respond with searchResultsArray
+
+  async function sendData(searchTerm) {
+    let searchResults = await searchHelper(searchTerm);
+
+    res.end(JSON.stringify(searchResults));
+  }
+
+  sendData(searchTerm);
 });
 
 
@@ -87,12 +93,12 @@ app.post('/login', function(req, res) {
   
 });
 
-app.get('/login', function(req, res) {
-  jwt.verify(req.headers.token, 'secretkey', function (err, data) {
-    if (err) { res.end(JSON.stringify(err)); }
-    res.end(JSON.stringify(data));
-  });
-});
+// app.get('/login', function(req, res) {
+//   jwt.verify(req.headers.token, 'secretkey', function (err, data) {
+//     if (err) { res.end(JSON.stringify(err)); }
+//     res.end(JSON.stringify(data));
+//   });
+// });
 
 /***********************************************************************/
 /************************* Logut Route ********************************/

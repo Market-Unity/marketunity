@@ -44,17 +44,23 @@ class App extends Component {
     };
   }
 
-  handleQuery(event) {
+  changeQueryState(event) {
     event.preventDefault;
     this.setState({
       query: event.target.value
     });
-    console.log(event.target.value);
-    //POST request for searching products
-    // axios.post('/search', {query : this.state.query}).then(function(response){
-    //   this.setState = {products : response};
-    // })
+    console.log(this.state.query);
   }
+
+  sendQuery() {
+    axios.post('/search', { query: this.state.query })
+      .then((res) => {
+        this.setState({ 
+          products: res.data
+        });
+      });
+  }
+
 
   render() {
     return (
@@ -66,7 +72,10 @@ class App extends Component {
             <Route path='/signup' component={SignUp}/>
             <Route path='/' render = {(props) =>
               <div>
-                <Search handleQuery = {this.handleQuery.bind(this)}></Search>
+                <Search 
+                  changeQueryState={this.changeQueryState.bind(this)}
+                  sendQuery={this.sendQuery.bind(this)}>
+                </Search>
                 <ProductList products = {this.state.products}></ProductList>
               </div>
 
