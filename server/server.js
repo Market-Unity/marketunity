@@ -87,12 +87,12 @@ app.post('/login', function(req, res) {
   
 });
 
-app.get('/login', function(req, res) {
-  helpers.verifyToken(req.headers, (err, data) => {
-    if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
-    res.end(JSON.stringify(data));
-  });
-});
+// app.get('/login', function(req, res) {
+//   helpers.verifyToken(req.headers, (err, data) => {
+//     if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
+//     res.end(JSON.stringify(data));
+//   });
+// });
 
 /***********************************************************************/
 /************************* Logut Route ********************************/
@@ -117,20 +117,3 @@ app.get('/*', function(request, response) {
   //not sure if anything else is needed
   
 });
-<<<<<<< HEAD
-
-app.post('/fav', function(req, res) {
-
-  for (i in req.body) {
-    console.log(req.body[i]);
-  }
-  // helpers.verifyToken(req.headers, (err, data) => {
-  //   if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
-  //   currentUser.username = data;
-  //   helpers.insertFav(currentUser, (err, data) => {
-
-  //   });
-  // });
-});
-=======
->>>>>>> 770972b33a82b6e23a5b4119e5de60fbd85c668b

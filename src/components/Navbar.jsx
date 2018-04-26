@@ -21,19 +21,19 @@ export default class NavigationBar extends React.Component {
           <NavbarBrand href="/">
             <img src="https://image.ibb.co/cvsaP7/logo.png" className="nav-logo" alt="Armadillo"></img>Market-Unity
           </NavbarBrand>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink href="/favorites/">Favorites</NavLink>
-              </NavItem>
-            </Nav>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/login/">Login</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/signup/">Sign Up</NavLink>
-              </NavItem>
-            </Nav>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/favorites/">Favorites</NavLink>
+            </NavItem>
+          </Nav>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="/login/">Login</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/signup/">Sign Up</NavLink>
+            </NavItem>
+          </Nav>
         </Navbar>
       </div>
     );
