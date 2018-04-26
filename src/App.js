@@ -44,7 +44,7 @@ class App extends Component {
     }
   }
 
-  handleQuery = (event) => {
+  handleQuery(event) {
     event.preventDefault;
     this.setState({
       query : event.target.value
