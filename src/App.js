@@ -15,8 +15,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      query : '',
-      products : [
+      query: '',
+      products: [
         {
           name: 'Batteries',
           url: 'www.amazon.com',
@@ -26,13 +26,13 @@ class App extends Component {
         },
         {name: 'Playstation 4', price: 300}
       ]
-    }
+    };
   }
 
-  handleQuery = (event) => {
+  handleQuery(event) {
     event.preventDefault;
     this.setState({
-      query : event.target.value
+      query: event.target.value
     });
     console.log(event.target.value);
     //POST request for searching products
@@ -51,10 +51,10 @@ class App extends Component {
             <Route path='/signup' component={SignUp}/>
             <Route path='/' render = {(props) =>
               <Search handleQuery = {this.handleQuery.bind(this)}></Search>
-              }/>
+            }/>
             <Route path='/' render = {(props) =>
               <ProductList products = {this.state.products}></ProductList>
-              }/>
+            }/>
             <Route path='/' component={ProductList}/>
           </Switch>
         </Container>
