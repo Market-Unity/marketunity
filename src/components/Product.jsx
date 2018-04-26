@@ -1,6 +1,6 @@
 import React from 'react';
 import {Badge, ListGroupItem} from 'reactstrap';
-import "./css/Product.css"
+import './css/Product.css';
 
 export default class Product extends React.Component {
   constructor(props) {
