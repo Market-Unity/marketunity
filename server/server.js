@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const helpers = require('./data/db/helpers.js');
-const User = require('./data/db/models/newUser.js');
-const bestBuy = require('./bestbuy.js');
-const connection = require('./data/db/connection.js');
+const helpers = require('../data/db/helpers.js');
+const User = require('../data/db/models/newUser.js');
+const searchHelper = require('./searchHelpers/searchHelper.js');
+const connection = require('../data/db/connection.js');
 const jwt = require('jsonwebtoken');
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -27,13 +27,14 @@ app.listen(1337, function() {
 */
 
 /***********************************************************************/
-/********************** BestBuy Search Route ***************************/
+/************************** All Search Route ***************************/
 /***********************************************************************/
 
 app.get('/search', function(req, res) {
-  var searchTerm = req.body.searchTerm;
-  var bestBuyArr = bestBuy(searchTerm);
-
+  let searchTerm = req.body.searchTerm;
+  //returns sorted array of search results
+  let searchResults = searchHelper(searchTerm);
+  //TODO respond with searchResultsArray
 });
 
 
