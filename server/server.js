@@ -97,8 +97,8 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-  jwt.verify(req.headers.token, 'secretkey', function (err, data) {
-    if (err) { res.end(JSON.stringify(err)); }
+  helpers.verifyToken(req.headers, (err, data) => {
+    if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
     res.end(JSON.stringify(data));
   });
 });
@@ -128,3 +128,16 @@ app.get('/*', function(request, response) {
 
 });
 
+app.post('/fav', function(req, res) {
+
+  for (i in req.body) {
+    console.log(req.body[i]);
+  }
+  // helpers.verifyToken(req.headers, (err, data) => {
+  //   if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
+  //   currentUser.username = data;
+  //   helpers.insertFav(currentUser, (err, data) => {
+
+  //   });
+  // });
+});
