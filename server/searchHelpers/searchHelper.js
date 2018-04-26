@@ -24,14 +24,16 @@ module.exports = function(searchString) {
     return arr;
   };
 
-  //async function waits on individual search apis to execute before
-  //concating and returning
-  async function aggregateResults(searchString) {
-    let ebayResults = await ebay(searchString);
-    let bestBuyResults = await bestBuy(searchString);
+  return new Promise((resolve, reject) => {
+    //async function waits on individual search apis to execute before
+    //concating and returning
+    async function aggregateResults(searchString) {
+      let ebayResults = await ebay(searchString);
+      let bestBuyResults = await bestBuy(searchString);
+      
+      return ebayResults.concat(bestBuyResults);
+    }
     
-    return ebayResults.concat(bestBuyResults);
-  }
-  
- return bubbleSortByPrice(aggregateResults(searchString));
+    resolve(bubbleSortByPrice(aggregateResults(searchString)));
+  });
 };
