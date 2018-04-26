@@ -30,10 +30,10 @@ module.exports = function(searchString) {
     async function aggregateResults(searchString) {
       let ebayResults = await ebay(searchString);
       let bestBuyResults = await bestBuy(searchString);
-      
-      return ebayResults.concat(bestBuyResults);
+
+      return bubbleSortByPrice(ebayResults.concat(bestBuyResults));
     }
     
-    resolve(bubbleSortByPrice(aggregateResults(searchString)));
+    resolve(aggregateResults(searchString));
   });
 };
