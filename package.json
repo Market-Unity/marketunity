@@ -4,13 +4,8 @@
   "description": "Creating a unified online  market place.",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -d --watch"
-=======
     "webpack": "webpack -d --watch",
     "start": "nodemon server/server.js"
->>>>>>> 60dca647742fde93586bc668a64aeaf7d341e938
   },
   "repository": {
     "type": "git",

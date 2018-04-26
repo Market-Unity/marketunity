@@ -1,21 +1,21 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import "./css/Login.css"
+import './css/Login.css';
 import axios from 'axios';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username : '',
-      password : ''
-    }
+      username: '',
+      password: ''
+    };
   }
 
   //Store the password & username upon input value change
   handleChange(event) {
     this.setState({
-      [event.target.id] : event.target.value
+      [event.target.id]: event.target.value
     });
   }
 
