@@ -1,0 +1,16 @@
+#root > div > div.container > div > div > div > img {
+  width: 100px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#root > div > div.container > div > div > div.card-header {
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 0;
+}
+
+#root > div > div.container > div > div > div.card-header > div {
+  float: right;
+}
