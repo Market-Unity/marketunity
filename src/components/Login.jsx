@@ -13,14 +13,14 @@ export default class Login extends React.Component {
   }
 
   //Store the password & username upon input value change
-  handleChange = (event) => {
+  handleChange(event) {
     this.setState({
       [event.target.id] : event.target.value
     });
   }
 
   //Submit the login credentials to the server for verification
-  handleSubmit = (un, pw) => {
+  handleSubmit(un, pw) {
     //POST Request to login route, using axios
     console.log(un, pw);
     // axios.post('/login', {username : this.state.username, password : this.state.password}).then(function() {
