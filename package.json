@@ -1,0 +1,42 @@
+{
+  "name": "market-unity",
+  "version": "1.0.0",
+  "description": "Creating a unified online  market place.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/th0s/Market-Unity.git"
+  },
+  "author": "Amogh Kambale, Eric Park, Phillip Schmidt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/th0s/Market-Unity/issues"
+  },
+  "homepage": "https://github.com/th0s/Market-Unity#readme",
+  "dependencies": {
+    "amazon-product-api": "^0.4.4",
+    "axios": "^0.18.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.14",
+    "nodemon": "^1.17.3",
+    "npm": "^5.8.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "webpack": "^4.5.0",
+    "webpack-dev-server": "^3.1.3"
+  }
+}

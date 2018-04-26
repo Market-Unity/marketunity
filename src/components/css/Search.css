@@ -1,0 +1,11 @@
+#root > div > div.container > div > form {
+  margin: 20px 0 0 0;
+}
+
+#search {
+  width:100%;
+}
+
+#root > div > div.container > div > form > div {
+  padding: 0 0 0 0;
+}
