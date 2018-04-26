@@ -61,6 +61,12 @@ class App extends Component {
       });
   }
 
+  sortItems() {
+    this.setState({
+      products: this.state.products.reverse()
+    });
+  }
+
 
   render() {
     return (
@@ -76,7 +82,7 @@ class App extends Component {
                   changeQueryState={this.changeQueryState.bind(this)}
                   sendQuery={this.sendQuery.bind(this)}>
                 </Search>
-                <ProductList products = {this.state.products}></ProductList>
+                <ProductList sortItems = {this.sortItems.bind(this)} products = {this.state.products}></ProductList>
               </div>
 
             }/>

@@ -1,36 +1,40 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import "./css/ProductList.css";
+import './css/ProductList.css';
 
 export default class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      sortButtonName: 'Sort By Price: Low to High'
     };
   }
 
   toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
-    }));
+    if (this.state.sortButtonName === 'Sort By Price: Low to High') {
+      this.setState({
+        sortButtonName: 'Sort By Price: High to Low'
+      });
+    } else {
+      this.setState({
+        sortButtonName: 'Sort By Price: Low to High'
+      });
+    }
   }
+
+  buttonOnClick(e) {
+    this.props.sortItems();
+    this.toggle();
+  }
+
 
   render() {
     return (
       <div>
         <CardHeader>
-          Results
-          <Dropdown group size="sm" direction="left" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle caret>
-              Sort By
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem>Price: Low to High</DropdownItem>
-              <DropdownItem>Price: High to Low</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+          Results  
+          <Button onClick={this.buttonOnClick.bind(this)}>{this.state.sortButtonName}</Button>
         </CardHeader>
         {
           this.props.products.map((product) => {
@@ -42,7 +46,7 @@ export default class ProductList extends React.Component {
                 <CardText>{product.description}</CardText>
                 <Button href={product.url}color="primary">Buy</Button>
               </CardBody>
-            </Card>
+            </Card>;
           })
         }
       </div>
