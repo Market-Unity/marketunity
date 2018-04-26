@@ -26,6 +26,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.1.0",
+    "cors": "^2.8.4",
     "css-loader": "^0.28.11",
     "ebay": "0.0.1",
     "eslint": "^4.19.1",
