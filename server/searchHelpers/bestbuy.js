@@ -5,10 +5,10 @@ var axios = require('axios');
 module.exports = function(searchString) {
 
   //this method splits search terms into the appropriate url format
-  var searchTerms = 'search=' + searchString.split(' ').join('&search=');
+  let searchTerms = 'search=' + searchString.split(' ').join('&search=');
 
   //this url is how the api is called
-  var url = 'https://api.bestbuy.com/v1/products((' +
+  let url = 'https://api.bestbuy.com/v1/products((' +
             searchTerms + 
             '))?apiKey=' + 
             apiKey.bestBuy +
@@ -26,7 +26,7 @@ module.exports = function(searchString) {
         return {
           name: item.name,
           url: item.url,
-          price: item.salePrice,
+          price: '$' + item.salePrice.toString(),
           image: item.largeFrontImage,
           description: item.shortDescription
         };

@@ -3,6 +3,25 @@ const Ebay = require('ebay');
 
 module.exports = function(searchString) {
 
+  //function for consistantly formatting the variety of price formats that the API returns
+  const ebayPriceFormat = function(priceString) {
+    let priceArr = priceString.split('.');
+
+    if (priceArr.length === 1) {
+      return priceString + '.00';
+    }
+
+    let cents = priceArr[1];
+
+    if (cents.length === 0) {
+      return priceString + '00';
+    } else if (cents.length === 1) {
+      return priceString + '0';
+    } else {
+      return priceString;
+    }
+  };
+
   //This NPM package creates Ebay class object with your API key
   const ebay = new Ebay({
     app_id: api.ebay
@@ -39,7 +58,7 @@ module.exports = function(searchString) {
           return {
             name: item.title[0],
             url: item.viewItemURL[0],
-            price: item.sellingStatus[0].currentPrice[0].__value__,
+            price: ebayPriceFormat('$' + item.sellingStatus[0].currentPrice[0].__value__),
             image: item.galleryURL[0],
             description: item.condition[0].conditionDisplayName[0]
           };
