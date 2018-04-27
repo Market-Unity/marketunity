@@ -23,7 +23,6 @@ app.listen(1337, function () {
   console.log('App listening on port 1337');
 });
 
-let userLogged = false;
 
 /***********************************************************************/
 /***************************** Search Route ****************************/
@@ -95,8 +94,6 @@ app.post('/login', function(req, res) {
       message: 'Login Successful!',
       token: token
     });
-
-    userLogged = true;
 
     res.end();
 
