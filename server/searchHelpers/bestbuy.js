@@ -4,7 +4,25 @@ var axios = require('axios');
 
 module.exports = function(searchString) {
 
-  //this method splits search terms into the appropriate url format
+  //function for returning a null image if API returns null
+  const nullImage = function(url) {
+    if (url === null) {
+      return 'https://www.underconsideration.com/brandnew/archives/google_broken_image_00_b_logo_detail.gif';
+    } else {
+      return url;
+    }
+  };
+
+  //function for returning a description if API returns null
+  const nullDescription = function(string) {
+    if (string === null) {
+      return 'No description available';
+    } else {
+      return string;
+    }
+  };
+
+  //this line splits search terms into the appropriate url format
   let searchTerms = 'search=' + searchString.split(' ').join('&search=');
 
   //this url is how the api is called
@@ -27,11 +45,11 @@ module.exports = function(searchString) {
           name: item.name,
           url: item.url,
           price: '$' + item.salePrice.toString(),
-          image: item.largeFrontImage,
-          description: item.shortDescription
+          image: nullImage(item.largeFrontImage),
+          description: nullDescription(item.shortDescription)
         };
       });
-
+      console.log(results);
       //with the promise fullfilled, the data is returned
       resolve(results);
     }).catch(error => {
