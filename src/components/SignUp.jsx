@@ -1,31 +1,32 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import "./css/SignUp.css"
+import './css/SignUp.css';
 import axios from 'axios';
 
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username : '',
-      password : ''
-    }
+      username: '',
+      password: ''
+    };
   }
 
   //Store the password & username upon input value change
   handleChange(event) {
     this.setState({
-      [event.target.id] : event.target.value
+      [event.target.id]: event.target.value
     });
   }
 
   //Submit the login credentials to the server for verification
   handleSubmit(un, pw) {
     //POST Request to login route, using axios
-    console.log(un, pw);
-    // axios.post('/login', {username : this.state.username, password : this.state.password}).then(function() {
-    //
-    // })
+    console.log(un, pw, '< ===== is Username and PWD');
+    axios.post('/register', {username: this.state.username, password: this.state.password})
+      .then(function(data) {
+        console.log(data, '< --- is server data');
+      });
   }
 
   //Render the form

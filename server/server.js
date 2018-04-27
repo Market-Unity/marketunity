@@ -51,15 +51,15 @@ app.post('/register', function(req, res) {
     username: req.body.username,
     password: req.body.password
   };
-  
+    console.log(user)
   //this function will return a boolean or error to the front end
-  helpers.register(user, function(err, successfulRegister) {
-    if (err) {
-      res.end(JSON.stringify(err));
-    } else {
-      res.end(JSON.stringify(successfulRegister));
-    }
-  });
+  // helpers.register(user, function(err, successfulRegister) {
+  //   if (err) {
+  //     res.end(JSON.stringify(err));
+  //   } else {
+  //     res.end(JSON.stringify(successfulRegister));
+  //   }
+  // });
   
   //TODO: Imp Sessions
   
