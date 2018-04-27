@@ -117,3 +117,18 @@ button {    margin-top: 6px;
   background-color: white;
   border-color: white;
 }
+
+/* Favorites List */
+
+#app > div > div.container > div > div > img {
+  width: 100px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#app > div > div.container > div > div.card-header {
+  margin-top: 25px;
+  text-align: left;
+  padding-top: 10px;
+}
