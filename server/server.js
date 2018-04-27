@@ -23,6 +23,7 @@ app.listen(1337, function () {
   console.log('App listening on port 1337');
 });
 
+
 /***********************************************************************/
 /***************************** Search Route ****************************/
 /***********************************************************************/
@@ -51,7 +52,6 @@ app.post('/register', function(req, res) {
     username: req.body.username,
     password: req.body.password
   };
-    // console.log(user)
   //this function will return a boolean or error to the front end
   helpers.register(user, function(err, successfulRegister) {
     if (err) {
@@ -61,7 +61,6 @@ app.post('/register', function(req, res) {
     }
   });
   
-  //TODO: Imp Sessions
   
 });
 
@@ -81,16 +80,23 @@ app.post('/login', function(req, res) {
   helpers.authCheck(user, (err, data) => {
     if (err) { console.log(err); }
     if (data === false) {
-      res.end('Login failed. Invalid Username/Password.');
+
+      res.json({
+        message: 'Login failed. Invalid Username/Password.'
+      });
+
+      res.end();
     }
     
     var token = jwt.sign(user.username, 'secretkey');
     
     res.json({
+      message: 'Login Successful!',
       token: token
     });
-    
-    res.end('Login successful!');
+
+    res.end();
+
   });
   
 });
