@@ -1,6 +1,9 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row } from 'reactstrap';
 import './css/ProductList.css';
+import StarOutline from 'react-icons/lib/md/star-outline';
+import Star from 'react-icons/lib/md/star';
+
 
 export default class ProductList extends React.Component {
   constructor(props) {
@@ -28,6 +31,12 @@ export default class ProductList extends React.Component {
     this.toggle();
   }
 
+  starOnClick(e) {
+    $(".star").click(function() {
+      console.log($(this).html);
+      $(this).html("glyphicon-star glyphicon-star-empty");
+    });
+  }
 
   render() {
     return (
@@ -44,9 +53,11 @@ export default class ProductList extends React.Component {
               <CardImg top width="100%" src={product.image} alt="Card image cap" />
               <CardBody>
                 <CardTitle>{product.name}</CardTitle>
+
                 <CardSubtitle>{product.price}</CardSubtitle>
                 <CardText>{product.description}</CardText>
                 <Button href={product.url}color="primary">Buy</Button>
+                <Button color="warning" className="star"><StarOutline/></Button>
               </CardBody>
             </Card>;
           })
