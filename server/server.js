@@ -95,12 +95,12 @@ app.post('/login', function(req, res) {
   
 });
 
-// app.get('/login', function(req, res) {
-//   jwt.verify(req.headers.token, 'secretkey', function (err, data) {
-//     if (err) { res.end(JSON.stringify(err)); }
-//     res.end(JSON.stringify(data));
-//   });
-// });
+app.get('/login', function(req, res) {
+  jwt.verify(req.headers.token, 'secretkey', function (err, data) {
+    if (err) { res.end(JSON.stringify(err)); }
+    res.end(JSON.stringify(data));
+  });
+});
 
 /***********************************************************************/
 /************************* Logout Route ********************************/
@@ -119,9 +119,13 @@ app.get('/logout', function(req, res) {
 
 app.post('/saveitem', function(req, res) {
   let item = req.body;
-
-  //add item to db
-
+  helpers.verifyToken(req.headers, (err, data) => {
+    if (err) { res.end(JSON.stringify(err)); }
+    helpers.insertFav(item, (err, data) => {
+      if (err) { res.end(err); }
+      res.end(JSON.stringify(data));
+    });
+  });
   //send array of saved items from the db back to the client
 });
 
@@ -131,7 +135,13 @@ app.post('/saveitem', function(req, res) {
 
 app.post('/unsaveitem', function (req, res) {
   let item = req.body;
-
+  helpers.verifyToken(req.headers, (err, data) => {
+    if (err) { res.end(JSON.stringify(err)); }
+    helpers.removeFav(item, (err, data) => {
+      if (err) { res.end(err); }
+      res.end(JSON.stringify(data));
+    });
+  });
   //find item from db and delete it
 
   //send array of saved items from the db back to the client

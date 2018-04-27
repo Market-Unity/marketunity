@@ -1,6 +1,7 @@
 const newUser = require('./models/newUser');
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 
 // Register a new User. Will return boolean for user creation.
@@ -88,11 +89,41 @@ const authCheck = ({ username, password }, cb) => {
   });
 };
 
-// Imp Session System
+insertFav = ({ username, favorite }, cb) => {
+  newUser.findOneAndUpdate({
+    username: username 
+  }, {
+    $push: {favorites: favorite}
+  }, (err, user) => {
+    if (err) { cb(err, null); }
+    cb(null, data = user.favorites);
+  });
+};
+
+removeFav = ({ username, favorite }, cb) => {
+  newUser.update({
+    username: username
+  }, {
+    $pull: { favorites: { url: favorite.url } }
+  }, (err, user) => {
+    if (err) { cb(err, null); }
+    cb(null, user);
+  });
+};
+
+verifyToken = ({ token }, cb) => {
+  jwt.verify(token, 'secretkey', function (err, data) {
+    if (err) { cb(err, null); }
+    cb(null, data);
+  });
+};
 
 
 module.exports = {
   register,
   userAvailable,
-  authCheck
+  authCheck,
+  insertFav,
+  removeFav,
+  verifyToken
 };
