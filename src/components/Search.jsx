@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import "./css/Search.css"
+import './css/Search.css';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -11,13 +11,13 @@ export default class Search extends React.Component {
     return (
       <Form inline>
         <Col>
-        <FormGroup>
+          <FormGroup>
             <Label for="search" hidden>Search</Label>
-            <Input type="search" name="Search" id="search" placeholder="Search" onChange = {this.props.handleQuery}/>
-        </FormGroup>
+            <Input type="search" name="Search" id="search" placeholder="Search" onChange={this.props.changeQueryState}/>
+          </FormGroup>
         </Col>
         {' '}
-        <Button color="primary">Submit</Button>
+        <Button color="primary" onClick={this.props.sendQuery}>Submit</Button>
       </Form>
     );
   }

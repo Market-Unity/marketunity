@@ -9,8 +9,13 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 
 
+
+/***********************************************************************/
+/*********** Establishing Server and Listening on Port *****************/
+/***********************************************************************/
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); //if objects return empty, switch to http parsing thing
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
@@ -22,14 +27,19 @@ app.listen(1337, function () {
 /***************************** Search Route ****************************/
 /***********************************************************************/
 
-app.get('/search', function(req, res) {
-  let searchTerm = req.body.searchTerm;
+app.post('/search', function(req, res) {
+  let searchTerm = req.body.query;
+
   //returns sorted array of search results
-  let searchResults = searchHelper(searchTerm);
-  //TODO respond with searchResultsArray
+  //waits for promise of search results before sending to client
+  async function sendData(searchTerm) {
+    let searchResults = await searchHelper(searchTerm);
+    res.end(JSON.stringify(searchResults));
+  }
+
+  //calls the async function declared five lines above
+  sendData(searchTerm);
 });
-
-
 
 /***********************************************************************/
 /************************* Register Route ******************************/
@@ -41,7 +51,6 @@ app.post('/register', function(req, res) {
     username: req.body.username,
     password: req.body.password
   };
-  
   
   //this function will return a boolean or error to the front end
   helpers.register(user, function(err, successfulRegister) {
@@ -60,16 +69,15 @@ app.post('/register', function(req, res) {
 /************************* Login Route *********************************/
 /***********************************************************************/
 
-
-
-//post username and password to db
 app.post('/login', function(req, res) {
   
+  //user object is assembled from request body
   const user = {
     username: req.body.username,
     password: req.body.password
   };
   
+  //function authenticates user
   helpers.authCheck(user, (err, data) => {
     if (err) { console.log(err); }
     if (data === false) {
@@ -87,33 +95,74 @@ app.post('/login', function(req, res) {
   
 });
 
+<<<<<<< HEAD
 // app.get('/login', function(req, res) {
 //   helpers.verifyToken(req.headers, (err, data) => {
 //     if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
 //     res.end(JSON.stringify(data));
 //   });
 // });
+=======
 
 /***********************************************************************/
-/************************* Logut Route ********************************/
+/************************* Logout Route ********************************/
 /***********************************************************************/
 
 
-
-app.get('/logout', function(request, response) {
+app.get('/logout', function(req, res) {
   //destroy session function
-  //redirect to login
+
+  res.redirect('/'); 
 });
 
 /***********************************************************************/
+/************************ Save Item Route ******************************/
+/***********************************************************************/
+
+app.post('/saveitem', function(req, res) {
+  let item = req.body;
+
+  helpers.verifyToken(req.headers, (err, data) => {
+    if (err) { res.end(JSON.stringify(err)); }
+    helpers.uniqueListingChecker(item, (isDuplicate) => {
+      if (isDuplicate === true) {
+        res.end('Item already favorites!');
+      }
+      helpers.insertFav(item, (err, data) => {
+        if (err) { res.end(err); }
+        res.end(JSON.stringify(data));
+      });
+    });
+  });
+
+  //send array of saved items from the db back to the client
+});
+>>>>>>> 4d990859cb244ca7151ca84ba44909087caab93f
+
+/***********************************************************************/
+/************************* Unsave Item Route ***************************/
+/***********************************************************************/
+
+app.post('/unsaveitem', function (req, res) {
+  let item = req.body;
+
+  helpers.verifyToken(req.headers, (err, data) => {
+    if (err) { res.end(JSON.stringify(err)); }
+    helpers.removeFav(item, (err, data) => {
+      if (err) { res.end(err); }
+      res.end(JSON.stringify(data));
+    });
+  });
+
+  //send array of saved items from the db back to the client
+});
+
+
 /***********************************************************************/
 /************************* Wildcard Route ******************************/
 /******************* handle all orther requests ************************/
 /***********************************************************************/
 
-app.get('/*', function(request, response) {
-  //redirect to '/'
-  
-  //not sure if anything else is needed
-  
+app.get('/*', function (req, res) {
+  res.redirect('/');  
 });

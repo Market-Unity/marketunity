@@ -11,30 +11,30 @@ const register = ({ username, password }, cb) => {
     if (err) { console.log('Error in Mongo Find func', err); }
         
     if (available === true) {
-      // Hashing Password Here
+      // Hashing Password
       hashPass(password, (err, hash) => {
         let createUser = new newUser({
           username: username,
           password: hash
         });
-  
+        // Insert new User
         createUser.save((err, data) => {
           if (err) {
             console.log('There was a DB insertion error: ', err);
             cb(err, null);
           }
-          data = available;
-          cb(null, data);
+
+          cb(null, userCreated = true);
         });
       });
     } else {
-      data = available;
-      cb(err, data);
+
+      cb(err, userCreated = false);
     }
   }));
 };
 
-  // Checks if username is already in DB
+// Checks if username is already in DB
 const userAvailable = (username, cb) => {
   let hash = '';
   newUser.find({
@@ -72,7 +72,6 @@ const authCheck = ({ username, password }, cb) => {
   userAvailable(username, (err, data, hash) => {
     if (err) { 
       err = 'Username does not exist!'; 
-      console.log(err);
       cb(err, null);
     }
 
@@ -83,12 +82,56 @@ const authCheck = ({ username, password }, cb) => {
         console.log('There was a hashing error: ', err);
         cb(err, null);
       }
-      authenticated = result;
-      cb(null, authenticated);
+      // Bcrypts compare function returns a simple boolean as result
+      // Passing that along here
+      cb(null, authenticated = result);
     });
   });
 };
 
+// Checks DB for duplcate favorite listings
+uniqueListingChecker = ({ username, favorite }, cb) => {
+  let dup = false;
+
+  newUser.findOne({username: username}, (err, user) => {
+    user.favorites.forEach((item) => {
+      // MongoDB lacks Array Duplication Prevention
+      // So we are going to use the url of our favorite objects
+      if (item.url === favorite.url) {
+        dup = true;
+      }
+    });
+    cb(dup);
+  });
+};
+
+// Insert new listing into DB
+insertFav = ({ username, favorite }, cb) => {
+  newUser.findOneAndUpdate({
+    username: username 
+  }, {
+    $push: {favorites: favorite}
+  }, (err, user) => {
+    if (err) { cb(err, null); }
+    // user.favorites is array of favorites
+    cb(null, data = user.favorites);
+  });
+};
+
+// Remove listing from DB
+removeFav = ({ username, favorite }, cb) => {
+  newUser.update({
+    username: username
+  }, {
+    // Remove favorites listing based on unique url
+    $pull: { favorites: { url: favorite.url } }
+  }, (err, user) => {
+    if (err) { cb(err, null); }
+    cb(null, user);
+  });
+};
+
+<<<<<<< HEAD
 insertFav = ({ username, favorite }, cb) => {
   newUser.findOne({ username: username }, (err, user) => {
     if (err) { cb(err, null); }
@@ -98,6 +141,9 @@ insertFav = ({ username, favorite }, cb) => {
   });
 };
 
+=======
+// Verifys that user token is valid
+>>>>>>> 4d990859cb244ca7151ca84ba44909087caab93f
 verifyToken = ({ token }, cb) => {
   jwt.verify(token, 'secretkey', function (err, data) {
     if (err) { cb(err, null); }
@@ -107,9 +153,16 @@ verifyToken = ({ token }, cb) => {
 
 
 module.exports = {
-  register,
-  userAvailable,
   authCheck,
   insertFav,
+  register,
+  removeFav,
+  uniqueListingChecker,
+  userAvailable,
+<<<<<<< HEAD
+  authCheck,
+  insertFav,
+=======
+>>>>>>> 4d990859cb244ca7151ca84ba44909087caab93f
   verifyToken
 };

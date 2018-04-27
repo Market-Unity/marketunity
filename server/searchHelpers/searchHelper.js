@@ -24,14 +24,20 @@ module.exports = function(searchString) {
     return arr;
   };
 
-  //async function waits on individual search apis to execute before
-  //concating and returning
-  async function aggregateResults(searchString) {
-    let ebayResults = await ebay(searchString);
-    let bestBuyResults = await bestBuy(searchString);
+  //a promise is needed here because the search results
+  //need to be ready before sending to the client
+  return new Promise((resolve, reject) => {
+
+    //async function waits on both eBay and Best Buy API promises
+    async function aggregateResults(searchString) {
+      let ebayResults = await ebay(searchString);
+      let bestBuyResults = await bestBuy(searchString);
+
+      //arrays are joined together and then sorted from highest price to lowest
+      return bubbleSortByPrice(ebayResults.concat(bestBuyResults));
+    }
     
-    return ebayResults.concat(bestBuyResults);
-  }
-  
- return bubbleSortByPrice(aggregateResults(searchString));
+    //the below line actually calls the function delcared on line 32
+    resolve(aggregateResults(searchString));
+  });
 };

@@ -3,11 +3,30 @@ var axios = require('axios');
 
 
 module.exports = function(searchString) {
-  var arr = [];
 
-  var searchTerms = 'search=' + searchString.split(' ').join('&search=');
+  //function for returning a null image if API returns null
+  const nullImage = function(url) {
+    if (url === null) {
+      return 'https://www.underconsideration.com/brandnew/archives/google_broken_image_00_b_logo_detail.gif';
+    } else {
+      return url;
+    }
+  };
 
-  var url = 'https://api.bestbuy.com/v1/products((' +
+  //function for returning a description if API returns null
+  const nullDescription = function(string) {
+    if (string === null) {
+      return 'No description available';
+    } else {
+      return string;
+    }
+  };
+
+  //this line splits search terms into the appropriate url format
+  let searchTerms = 'search=' + searchString.split(' ').join('&search=');
+
+  //this url is how the api is called
+  let url = 'https://api.bestbuy.com/v1/products((' +
             searchTerms + 
             '))?apiKey=' + 
             apiKey.bestBuy +
@@ -18,19 +37,18 @@ module.exports = function(searchString) {
     axios.get(url).then(res => {
       
       //takes the object returned by the API and isolates the products array
-      arr = res.data.products;
+      let arr = res.data.products;
 
       //returns an array of items refactored to our data structure schema
       let results = arr.map(function(item) {
         return {
           name: item.name,
           url: item.url,
-          price: item.salePrice,
-          image: item.largeFrontImage,
-          description: item.shortDescription
+          price: '$' + item.salePrice.toString(),
+          image: nullImage(item.largeFrontImage),
+          description: nullDescription(item.shortDescription)
         };
       });
-
       //with the promise fullfilled, the data is returned
       resolve(results);
     }).catch(error => {
