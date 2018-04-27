@@ -32,10 +32,7 @@ export default class ProductList extends React.Component {
   }
 
   starOnClick(e) {
-    $(".star").click(function() {
-      console.log($(this).html);
-      $(this).html("glyphicon-star glyphicon-star-empty");
-    });
+    var star = document.getElementByClass("star");
   }
 
   render() {
@@ -53,11 +50,10 @@ export default class ProductList extends React.Component {
               <CardImg top width="100%" src={product.image} alt="Card image cap" />
               <CardBody>
                 <CardTitle>{product.name}</CardTitle>
-
                 <CardSubtitle>{product.price}</CardSubtitle>
                 <CardText>{product.description}</CardText>
                 <Button href={product.url}color="primary">Buy</Button>
-                <Button color="warning" className="star"><StarOutline/></Button>
+                <Button onClick={this.starOnClick.bind(this)} color="warning" className="star"><StarOutline/></Button>
               </CardBody>
             </Card>;
           })

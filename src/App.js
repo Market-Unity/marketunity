@@ -40,7 +40,15 @@ class App extends Component {
           description: 'Compatible with Samsung Galaxy S8'
         }
       ],
-      favorites: []
+      favorites: [
+        {
+          name: 'Samsung - Galaxy J3 with 16GB Memory Cell Phone - Silver (AT&T)',
+          url: 'https://api.bestbuy.com/click/-/5887123/pdp',
+          price: 179.99,
+          image: 'https://img.bbystatic.com/BestBuy_US/images/products/5887/5887123_sd.jpg',
+          description: 'Android 7.0 Nougat4G LTE5" HD touch screenBluetooth'
+        }
+      ]
     };
   }
 
@@ -54,7 +62,7 @@ class App extends Component {
   sendQuery() {
     axios.post('/search', { query: this.state.query })
       .then((res) => {
-        this.setState({ 
+        this.setState({
           products: res.data
         });
       });
@@ -66,6 +74,15 @@ class App extends Component {
     });
   }
 
+  getFavorites() {
+    axios.get('/favorites')
+      .then((res) => {
+        this.setState({
+          favorites: res.data
+        })
+      })
+  }
+
 
   render() {
     return (
@@ -75,18 +92,17 @@ class App extends Component {
           <Switch>
             <Route path='/login' component={Login}/>
             <Route path='/signup' component={SignUp}/>
+            <Route path='/favorites/' render = {(props) =>
+                <FavoriteList favorites = {this.state.favorites}></FavoriteList>
+              }/>
             <Route path='/' render = {(props) =>
               <div>
-                <Search 
+                <Search
                   changeQueryState={this.changeQueryState.bind(this)}
                   sendQuery={this.sendQuery.bind(this)}>
                 </Search>
                 <ProductList sortItems = {this.sortItems.bind(this)} products = {this.state.products}></ProductList>
               </div>
-
-            }/>
-            <Route path='/favorites' render = {(props) =>
-              <FavoriteList favorites = {this.state.favorites}></FavoriteList>
             }/>
           </Switch>
         </Container>
