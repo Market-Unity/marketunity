@@ -31,12 +31,13 @@ app.post('/search', function(req, res) {
   let searchTerm = req.body.query;
 
   //returns sorted array of search results
-  //waits for promise of search results before responding to client
+  //waits for promise of search results before sending to client
   async function sendData(searchTerm) {
     let searchResults = await searchHelper(searchTerm);
     res.end(JSON.stringify(searchResults));
   }
 
+  //calls the async function declared five lines above
   sendData(searchTerm);
 });
 
@@ -50,7 +51,6 @@ app.post('/register', function(req, res) {
     username: req.body.username,
     password: req.body.password
   };
-  
   
   //this function will return a boolean or error to the front end
   helpers.register(user, function(err, successfulRegister) {
@@ -71,11 +71,13 @@ app.post('/register', function(req, res) {
 
 app.post('/login', function(req, res) {
   
+  //user object is assembled from request body
   const user = {
     username: req.body.username,
     password: req.body.password
   };
   
+  //function authenticates user
   helpers.authCheck(user, (err, data) => {
     if (err) { console.log(err); }
     if (data === false) {
