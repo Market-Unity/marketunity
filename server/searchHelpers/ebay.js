@@ -22,6 +22,16 @@ module.exports = function(searchString) {
     }
   };
 
+  //The API will sometimes return a different class of product that does not have
+  //item.condition array. This helper function fixes that problem
+  const descriptionChecker = function(obj) {
+    if (!obj) {
+      return 'No description available';
+    } else {
+      return obj[0].conditionDisplayName[0];
+    }
+  };
+
   //This NPM package creates Ebay class object with your API key
   const ebay = new Ebay({
     app_id: api.ebay
@@ -47,7 +57,7 @@ module.exports = function(searchString) {
       if (err) {
         reject(err);
       } else {
-
+        
         //data is the API response in the form of an object
         //the line below accesses the array of items from the data object received
         let items = data.findItemsByKeywordsResponse[0].searchResult[0].item;
@@ -60,7 +70,7 @@ module.exports = function(searchString) {
             url: item.viewItemURL[0],
             price: ebayPriceFormat('$' + item.sellingStatus[0].currentPrice[0].__value__),
             image: item.galleryURL[0],
-            description: item.condition[0].conditionDisplayName[0]
+            description: descriptionChecker(item.condition)
           };
         });
 
