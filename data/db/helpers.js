@@ -1,6 +1,7 @@
 const newUser = require('./models/newUser');
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 
 // Register a new User. Will return boolean for user creation.
@@ -10,13 +11,13 @@ const register = ({ username, password }, cb) => {
     if (err) { console.log('Error in Mongo Find func', err); }
         
     if (available === true) {
-      // Hashing Password Here
+      // Hashing Password
       hashPass(password, (err, hash) => {
         let createUser = new newUser({
           username: username,
           password: hash
         });
-  
+        // Insert new User
         createUser.save((err, data) => {
           if (err) {
             console.log('There was a DB insertion error: ', err);
@@ -33,7 +34,7 @@ const register = ({ username, password }, cb) => {
   }));
 };
 
-  // Checks if username is already in DB
+// Checks if username is already in DB
 const userAvailable = (username, cb) => {
   let hash = '';
   newUser.find({
@@ -88,11 +89,58 @@ const authCheck = ({ username, password }, cb) => {
   });
 };
 
-// Imp Session System
+// Insert new listing into DB
+insertFav = ({ username, favorite }, cb) => {
+  newUser.findOneAndUpdate({
+    username: username 
+  }, {
+    $push: {favorites: favorite}
+  }, (err, user) => {
+    if (err) { cb(err, null); }
+    cb(null, data = user.favorites);
+  });
+};
 
+// Remove listing from DB
+removeFav = ({ username, favorite }, cb) => {
+  newUser.update({
+    username: username
+  }, {
+    $pull: { favorites: { url: favorite.url } }
+  }, (err, user) => {
+    if (err) { cb(err, null); }
+    cb(null, user);
+  });
+};
+
+// Verifys that user token is valid
+verifyToken = ({ token }, cb) => {
+  jwt.verify(token, 'secretkey', function (err, data) {
+    if (err) { cb(err, null); }
+    cb(null, data);
+  });
+};
+
+// Checks DB for duplcate favorite listings
+uniqueListingChecker = ({ username, favorite }, cb) => {
+  let dup = false;
+
+  newUser.findOne({username: username}, (err, user) => {
+    user.favorites.forEach((item) => {
+      if (item.url === favorite.url) {
+        dup = true;
+      }
+    });
+    cb(dup);
+  });
+};
 
 module.exports = {
+  authCheck,
+  insertFav,
   register,
+  removeFav,
+  uniqueListingChecker,
   userAvailable,
-  authCheck
+  verifyToken
 };
