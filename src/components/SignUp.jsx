@@ -23,7 +23,7 @@ export default class SignUp extends React.Component {
   handleSubmit(un, pw) {
     //POST Request to login route, using axios
     console.log(un, pw, '< ===== is Username and PWD');
-    axios.post('/register', {username: this.state.username, password: this.state.password})
+    axios.post('/register', {username: un, password: pw})
       .then(function(data) {
         console.log(data, '< --- is server data');
       });

@@ -23,9 +23,10 @@ export default class Login extends React.Component {
   handleSubmit(un, pw) {
     //POST Request to login route, using axios
     console.log(un, pw);
-    axios.post('/login', {username: this.state.username, password: this.state.password}).then(function() {
+    axios.post('/login', {username: this.state.username, password: this.state.password})
+      .then(function() {
     
-    });
+      });
   }
 
   //Render the form
