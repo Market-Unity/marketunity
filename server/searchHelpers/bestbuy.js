@@ -49,7 +49,6 @@ module.exports = function(searchString) {
           description: nullDescription(item.shortDescription)
         };
       });
-      console.log(results);
       //with the promise fullfilled, the data is returned
       resolve(results);
     }).catch(error => {
