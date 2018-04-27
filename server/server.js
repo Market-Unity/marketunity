@@ -95,12 +95,6 @@ app.post('/login', function(req, res) {
   
 });
 
-app.get('/login', function(req, res) {
-  jwt.verify(req.headers.token, 'secretkey', function (err, data) {
-    if (err) { res.end(JSON.stringify(err)); }
-    res.end(JSON.stringify(data));
-  });
-});
 
 /***********************************************************************/
 /************************* Logout Route ********************************/
