@@ -31,5 +31,7 @@
   
 ## Start Webpack and Server ##
    Execute the following two commands in your terminal. Both can be found in the root directory's "package.json".
+   
    "npm run webpack"
+   
    "npm start"
