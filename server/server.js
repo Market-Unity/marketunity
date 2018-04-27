@@ -51,7 +51,7 @@ app.post('/register', function(req, res) {
     username: req.body.username,
     password: req.body.password
   };
-  
+    // console.log(user)
   //this function will return a boolean or error to the front end
   helpers.register(user, function(err, successfulRegister) {
     if (err) {
@@ -148,6 +148,16 @@ app.post('/unsaveitem', function (req, res) {
   //send array of saved items from the db back to the client
 });
 
+app.post('/getfavorites', (req, res) => {
+  let user = req.body.username
+  helpers.verifyToken(req.headers, (err, data) => {
+    if (err) { res.end(JSON.stringify(err)); }
+    helpers.getFavs(user, (err, favArr) => {
+      if (err) { res.end(JSON.stringify(err)); }
+      res.end(JSON.stringify(favArr));
+    });
+  });
+});
 
 /***********************************************************************/
 /************************* Wildcard Route ******************************/
