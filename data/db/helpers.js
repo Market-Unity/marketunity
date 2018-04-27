@@ -11,13 +11,13 @@ const register = ({ username, password }, cb) => {
     if (err) { console.log('Error in Mongo Find func', err); }
         
     if (available === true) {
-      // Hashing Password Here
+      // Hashing Password
       hashPass(password, (err, hash) => {
         let createUser = new newUser({
           username: username,
           password: hash
         });
-  
+        // Insert new User
         createUser.save((err, data) => {
           if (err) {
             console.log('There was a DB insertion error: ', err);
@@ -34,7 +34,7 @@ const register = ({ username, password }, cb) => {
   }));
 };
 
-  // Checks if username is already in DB
+// Checks if username is already in DB
 const userAvailable = (username, cb) => {
   let hash = '';
   newUser.find({
@@ -89,6 +89,7 @@ const authCheck = ({ username, password }, cb) => {
   });
 };
 
+// Insert new listing into DB
 insertFav = ({ username, favorite }, cb) => {
   newUser.findOneAndUpdate({
     username: username 
@@ -100,6 +101,7 @@ insertFav = ({ username, favorite }, cb) => {
   });
 };
 
+// Remove listing from DB
 removeFav = ({ username, favorite }, cb) => {
   newUser.update({
     username: username
@@ -111,6 +113,7 @@ removeFav = ({ username, favorite }, cb) => {
   });
 };
 
+// Verifys that user token is valid
 verifyToken = ({ token }, cb) => {
   jwt.verify(token, 'secretkey', function (err, data) {
     if (err) { cb(err, null); }
@@ -118,6 +121,7 @@ verifyToken = ({ token }, cb) => {
   });
 };
 
+// Checks DB for duplcate favorite listings
 uniqueListingChecker = ({ username, favorite }, cb) => {
   let dup = false;
 
