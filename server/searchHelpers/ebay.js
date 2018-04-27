@@ -22,6 +22,15 @@ module.exports = function(searchString) {
     }
   };
 
+  //if image url is undefined, then it will return a broken link
+  const nullImage = function (imageUrl) {
+    if (imageUrl === undefined) {
+      return 'https://www.underconsideration.com/brandnew/archives/google_broken_image_00_b_logo_detail.gif';
+    } else {
+      return imageUrl[0];
+    }
+  };
+
   //The API will sometimes return a different class of product that does not have
   //item.condition array. This helper function fixes that problem
   const descriptionChecker = function(obj) {
@@ -69,7 +78,7 @@ module.exports = function(searchString) {
             name: item.title[0],
             url: item.viewItemURL[0],
             price: ebayPriceFormat('$' + item.sellingStatus[0].currentPrice[0].__value__),
-            image: item.galleryURL[0],
+            image: nullImage(item.galleryURL),
             description: descriptionChecker(item.condition)
           };
         });

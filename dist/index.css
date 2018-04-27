@@ -111,3 +111,9 @@ button {    margin-top: 6px;
 #app > div > div.container > div > div > div.card-header > div > div:nth-child(2) > button {
   float: right;
 }
+
+#app > div > div.container > div > div > div > div > button {
+  color: #ffc107;
+  background-color: white;
+  border-color: white;
+}
