@@ -118,12 +118,25 @@ verifyToken = ({ token }, cb) => {
   });
 };
 
+uniqueListingChecker = ({ username, favorite }, cb) => {
+  let dup = false;
+
+  newUser.findOne({username: username}, (err, user) => {
+    user.favorites.forEach((item) => {
+      if (item.url === favorite.url) {
+        dup = true;
+      }
+    });
+    cb(dup);
+  });
+};
 
 module.exports = {
-  register,
-  userAvailable,
   authCheck,
   insertFav,
+  register,
   removeFav,
+  uniqueListingChecker,
+  userAvailable,
   verifyToken
 };

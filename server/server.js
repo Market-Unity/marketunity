@@ -119,13 +119,20 @@ app.get('/logout', function(req, res) {
 
 app.post('/saveitem', function(req, res) {
   let item = req.body;
+
   helpers.verifyToken(req.headers, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
-    helpers.insertFav(item, (err, data) => {
-      if (err) { res.end(err); }
-      res.end(JSON.stringify(data));
+    helpers.uniqueListingChecker(item, (isDuplicate) => {
+      if (isDuplicate === true) {
+        res.end('Item already favorites!');
+      }
+      helpers.insertFav(item, (err, data) => {
+        if (err) { res.end(err); }
+        res.end(JSON.stringify(data));
+      });
     });
   });
+
   //send array of saved items from the db back to the client
 });
 
@@ -135,6 +142,7 @@ app.post('/saveitem', function(req, res) {
 
 app.post('/unsaveitem', function (req, res) {
   let item = req.body;
+
   helpers.verifyToken(req.headers, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
     helpers.removeFav(item, (err, data) => {
@@ -142,10 +150,10 @@ app.post('/unsaveitem', function (req, res) {
       res.end(JSON.stringify(data));
     });
   });
-  //find item from db and delete it
 
   //send array of saved items from the db back to the client
 });
+
 
 /***********************************************************************/
 /************************* Wildcard Route ******************************/
