@@ -6,13 +6,18 @@ module.exports = function(searchString) {
   //bubble sort function to sort all results by highest price to lowest
   const bubbleSortByPrice = function(arr) {
 
+    //helper function for converting '$312.52' into 312.52 for sorting
+    const convertToFloat = function(string) {
+      return parseFloat(string.split('$')[1]);
+    }
+
     //do this loop as many times as there are elements in the array
     //Not the most efficient bubble sort implementation, but will loop long enough to sort all data
     let x = 0;
     while (x < arr.length) {
 
       for (var i = 0; i < arr.length - 1; i++) {
-        if (parseFloat(arr[i + 1].price) > parseFloat(arr[i].price)) {
+        if (convertToFloat(arr[i + 1].price) > convertToFloat(arr[i].price)) {
           let storage = arr[i + 1];
           arr[i + 1] = arr[i]; 
           arr[i] = storage;

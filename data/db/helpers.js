@@ -131,19 +131,7 @@ removeFav = ({ username, favorite }, cb) => {
   });
 };
 
-<<<<<<< HEAD
-insertFav = ({ username, favorite }, cb) => {
-  newUser.findOne({ username: username }, (err, user) => {
-    if (err) { cb(err, null); }
-    user.favorites.push(favorite);
-    cb(null, data = 'Successful');
-    
-  });
-};
-
-=======
 // Verifys that user token is valid
->>>>>>> 4d990859cb244ca7151ca84ba44909087caab93f
 verifyToken = ({ token }, cb) => {
   jwt.verify(token, 'secretkey', function (err, data) {
     if (err) { cb(err, null); }
@@ -159,10 +147,5 @@ module.exports = {
   removeFav,
   uniqueListingChecker,
   userAvailable,
-<<<<<<< HEAD
-  authCheck,
-  insertFav,
-=======
->>>>>>> 4d990859cb244ca7151ca84ba44909087caab93f
   verifyToken
 };

@@ -95,14 +95,6 @@ app.post('/login', function(req, res) {
   
 });
 
-<<<<<<< HEAD
-// app.get('/login', function(req, res) {
-//   helpers.verifyToken(req.headers, (err, data) => {
-//     if (err) { res.end(JSON.stringify('Unable to verify token: ', err)); }
-//     res.end(JSON.stringify(data));
-//   });
-// });
-=======
 
 /***********************************************************************/
 /************************* Logout Route ********************************/
@@ -137,7 +129,6 @@ app.post('/saveitem', function(req, res) {
 
   //send array of saved items from the db back to the client
 });
->>>>>>> 4d990859cb244ca7151ca84ba44909087caab93f
 
 /***********************************************************************/
 /************************* Unsave Item Route ***************************/
