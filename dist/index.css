@@ -97,10 +97,17 @@ button {    margin-top: 6px;
 }
 
 #app > div > div.container > div > div > div.card-header {
-  padding-left: 10px;
-  padding-right: 0;
+  padding: 5px 0 5px 10px;
+}
+
+#app > div > div.container > div > div > div.card-header > div > div:nth-child(1) {
+  padding-top: 2px;
 }
 
 #app > div > div.container > div > div > div.card-header > div {
+  text-align: left;
+}
+
+#app > div > div.container > div > div > div.card-header > div > div:nth-child(2) > button {
   float: right;
 }

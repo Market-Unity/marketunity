@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row } from 'reactstrap';
 import './css/ProductList.css';
 
 export default class ProductList extends React.Component {
@@ -33,8 +33,10 @@ export default class ProductList extends React.Component {
     return (
       <div>
         <CardHeader>
-          <div className="results">Results:</div>
-          <Button className="float-right" onClick={this.buttonOnClick.bind(this)}>{this.state.sortButtonName}</Button>
+          <Row>
+            <Col xs="6">Results:</Col>
+            <Col xs="6"><Button size="sm" onClick={this.buttonOnClick.bind(this)}>{this.state.sortButtonName}</Button></Col>
+          </Row>
         </CardHeader>
         {
           this.props.products.map((product) => {
