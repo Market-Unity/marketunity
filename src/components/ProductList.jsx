@@ -33,8 +33,8 @@ export default class ProductList extends React.Component {
     return (
       <div>
         <CardHeader>
-          Results  
-          <Button onClick={this.buttonOnClick.bind(this)}>{this.state.sortButtonName}</Button>
+          <div className="results">Results:</div>
+          <Button className="float-right" onClick={this.buttonOnClick.bind(this)}>{this.state.sortButtonName}</Button>
         </CardHeader>
         {
           this.props.products.map((product) => {
