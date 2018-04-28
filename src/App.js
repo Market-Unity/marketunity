@@ -56,6 +56,18 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
   }
 
+  componentDidMount() {
+    if( window.sessionStorage.token) {
+      axios.post('/getfavorites', { username : window.sessionStorage.username, token : window.sessionStorage.token})
+        .then((res) => {
+          console.log(res.data);
+          this.setState({
+            favorites: res.data
+          });
+        });
+    }
+  }
+
   changeQueryState(event) {
     event.preventDefault;
     this.setState({
@@ -78,15 +90,6 @@ class App extends Component {
     });
   }
 
-  getFavorites() {
-    axios.get('/favorites')
-      .then((res) => {
-        this.setState({
-          favorites: res.data
-        });
-      });
-  }
-
   onDismiss() {
     this.setState({ visible: false });
   }
@@ -96,9 +99,9 @@ class App extends Component {
   }
 
   saveItem(product) {
-    axios.post('/saveitem', { 
-      username: window.sessionStorage.username, 
-      product: product, 
+    axios.post('/saveitem', {
+      username: window.sessionStorage.username,
+      product: product,
       token: window.sessionStorage.token
     })
       .then((res) => {
