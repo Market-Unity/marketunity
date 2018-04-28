@@ -13,15 +13,17 @@ export default class Product extends React.Component {
     this.state = {
       starFilled: false
     };
+    this.starOnClick = this.starOnClick.bind(this);
   }
 
-  starOnClick(e) {
+  starOnClick(product) {
     //if user is logged in aka if session exists
     if (window.sessionStorage.token) {
       //toggle the star animation
       this.setState({
         starFilled: !this.state.starFilled
       });
+      this.props.saveItem(product);
     } else {
       //alert the user that they need to login
       this.props.onFavAlert();
@@ -37,7 +39,7 @@ export default class Product extends React.Component {
           <CardSubtitle>{this.props.product.price}</CardSubtitle>
           <CardText>{this.props.product.description}</CardText>
           <Button href={this.props.product.url} color="primary">Buy</Button>
-          <Button onClick={this.starOnClick.bind(this)} color="warning" className="star">{this.state.starFilled ? <Star /> : <StarOutline />}</Button>
+          <Button onClick={() => this.starOnClick(this.props.product)} color="warning" className="star">{this.state.starFilled ? <Star /> : <StarOutline />}</Button>
         </CardBody>
       </Card>
     );
