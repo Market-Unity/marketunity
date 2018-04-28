@@ -34,11 +34,11 @@ export default class SignUp extends React.Component {
             .then(({ data }) => {
               // Handle Token Persistance Here
               window.sessionStorage.token = data.data.token;
-              alert(data.message);
+              alert(data.message, 'successful login and register');
             });
         } else {
           // Handle Failed Signin
-          alert(data.message);
+          alert(data.message, 'unsuccessful register');
         }
       });
   }
@@ -49,10 +49,10 @@ export default class SignUp extends React.Component {
       <Form>
         <FormGroup>
           <Label for="exampleEmail">Register</Label>
-          <Input type="email" name="email" id="username" placeholder="Email" onBlur={this.handleChange}/>
+          <Input type="email" name="email" id="username" placeholder="Email" onChange={this.handleChange}/>
         </FormGroup>
         <FormGroup>
-          <Input type="password" name="password" id="password" placeholder="Password" onBlur={this.handleChange}/>
+          <Input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange}/>
         </FormGroup>
         <Button color="primary" onClick={() => { this.handleSubmit(this.state.username, this.state.password); }}>Submit</Button>
       </Form>
