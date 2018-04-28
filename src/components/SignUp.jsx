@@ -32,12 +32,13 @@ export default class SignUp extends React.Component {
         if (data.data) {
           axios.post('/login', { username: this.state.username, password: this.state.password })
             .then(({ data }) => {
-              alert(data.message);
               // Handle Token Persistance Here
+              window.sessionStorage.token = data.data.token;
+              alert(data.message);
             });
         } else {
-          alert(data.message);
           // Handle Failed Signin
+          alert(data.message);
         }
       });
   }

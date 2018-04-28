@@ -12,6 +12,18 @@ import './css/Navbar.css';
 export default class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      session: window.sessionStorage.token
+    };
+    this.displayLogout = this.displayLogout.bind(this);
+  }
+
+  displayLogout() {
+    console.log('Logged Out!');
+    delete window.sessionStorage.token;
+    this.setState({
+      session: false
+    });
   }
 
   render() {
@@ -28,7 +40,7 @@ export default class NavigationBar extends React.Component {
           </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/login">Login</NavLink>
+              {this.state.session ? <NavLink onClick={this.displayLogout}>Logout</NavLink> : <NavLink tag={Link} to="/login">Login</NavLink>} 
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/signup">Sign Up</NavLink>
