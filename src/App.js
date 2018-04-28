@@ -4,6 +4,7 @@ import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
 import Search from './components/Search.jsx';
 import ProductList from './components/ProductList.jsx';
+import Product from './components/Product.jsx';
 import FavoriteList from './components/FavoriteList.jsx';
 import { Route, Switch } from 'react-router-dom';
 import {Container} from 'reactstrap';
@@ -79,8 +80,8 @@ class App extends Component {
       .then((res) => {
         this.setState({
           favorites: res.data
-        })
-      })
+        });
+      });
   }
 
 
@@ -93,8 +94,8 @@ class App extends Component {
             <Route path='/login' component={Login}/>
             <Route path='/signup' component={SignUp}/>
             <Route path='/favorites/' render = {(props) =>
-                <FavoriteList favorites = {this.state.favorites}></FavoriteList>
-              }/>
+              <FavoriteList favorites = {this.state.favorites}></FavoriteList>
+            }/>
             <Route path='/' render = {(props) =>
               <div>
                 <Search

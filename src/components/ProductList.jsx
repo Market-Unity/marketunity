@@ -1,8 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row } from 'reactstrap';
 import './css/ProductList.css';
-import StarOutline from 'react-icons/lib/md/star-outline';
-import Star from 'react-icons/lib/md/star';
+import Product from './Product.jsx';
 
 
 export default class ProductList extends React.Component {
@@ -10,7 +9,7 @@ export default class ProductList extends React.Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      sortButtonName: 'Sort By Price: Low to High'
+      sortButtonName: 'Sort By Price: Low to High',
     };
   }
 
@@ -31,10 +30,6 @@ export default class ProductList extends React.Component {
     this.toggle();
   }
 
-  starOnClick(e) {
-    var star = document.getElementByClass("star");
-  }
-
   render() {
     return (
       <div>
@@ -46,16 +41,7 @@ export default class ProductList extends React.Component {
         </CardHeader>
         {
           this.props.products.map((product) => {
-            return <Card>
-              <CardImg top width="100%" src={product.image} alt="Card image cap" />
-              <CardBody>
-                <CardTitle>{product.name}</CardTitle>
-                <CardSubtitle>{product.price}</CardSubtitle>
-                <CardText>{product.description}</CardText>
-                <Button href={product.url}color="primary">Buy</Button>
-                <Button onClick={this.starOnClick.bind(this)} color="warning" className="star"><StarOutline/></Button>
-              </CardBody>
-            </Card>;
+            return <Product product={product}/>;
           })
         }
       </div>
