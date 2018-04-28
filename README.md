@@ -55,9 +55,7 @@ npm install
 ```
 
 ### NPM Scripts
-npm scripts are provided for starting development server
-
-From within the root directory:
+npm scripts are provided for starting development server. From within the root directory:
 
 Start Webpack:
 ```sh
