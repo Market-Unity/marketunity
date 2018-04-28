@@ -117,7 +117,7 @@ app.get('/logout', function(req, res) {
 
 app.post('/saveitem', function(req, res) {
   let item = req.body;
-  
+  console.log(item)
   helpers.verifyToken(item, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
     helpers.uniqueListingChecker(item, (isDuplicate) => {
