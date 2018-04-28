@@ -41,7 +41,7 @@ export default class ProductList extends React.Component {
         </CardHeader>
         {
           this.props.products.map((product) => {
-            return <Product product={product}/>;
+            return <Product onFavAlert = {this.props.onFavAlert} product={product}/>;
           })
         }
       </div>

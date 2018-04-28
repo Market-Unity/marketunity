@@ -1,6 +1,13 @@
+/* App */
+
+#favAlert {
+  display: none;
+  margin-bottom: 0;
+}
+
 /* NAV BAR */
 
-#app > div > div:nth-child(1) > nav > a > img {
+#app > div > div > nav > a > img {
   width: 40px;
 }
 
