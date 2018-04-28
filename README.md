@@ -1,28 +1,69 @@
-# Market Unity #
- 
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+## Armadillo Search 
+Armadillo Search is an open source web application that lists products from eBay and Best Buy. Users can easily search for products, add them to a favorites list, and visit the website to purchase.
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
-## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+### Team
+- __Product Owner:__ Phillip
+- __Scrum Master:__ Amogh
+- __Lead Developer:__ Eric
+- __Software Engineering:__ Eric, Phillip, Amogh
 
-## Problem ##
-  > Describe the problem your product solves.
 
-## Solution ##
-  > Describe how your product elegantly solves the problem.
+### Requirements
+- Node.js
+- Express
+- React
+- MongoDB
+- Amazon/Ebay APIs
 
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+## Development
 
-## How to Get Started ##
-  > Describe how easy it is to get started.
+### Best Buy API
+[Get Best Buy API key](https://developer.bestbuy.com/)
+   
+[Test the Best Buy query](https://bestbuyapis.github.io/bby-query-builder/#/productSearch)
 
-## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+### eBay API
+[Register for an eBay developer account and request an API key](https://developer.ebay.com/DevZone/account/)
+   
+For eBay, be sure to request a PRODUCTION API key. Sandbox will not work. The key needed is the App ID.
+   
+Using the eBay npm package is the easiest way to make calls to the eBay API and receive JSON data refer to [this page for more information.](https://www.npmjs.com/package/ebay)
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+### Save API Keys in separate file
+   A file named "apiKeys.js" with the following schema should be added to the "server/searchHelpers/" directory. 
+
+```sh
+module.exports = {
+  bestBuy: 'api key string',
+  ebay: 'api key string'
+}
+```
+
+### Starting Database 
+Install mongodb to your system if you have not already. Then run the following command in your terminal:
+
+```sh
+mongod
+```
+
+### Installing Dependencies 
+
+From within the root directory:
+
+```sh
+npm install
+```
+
+### NPM Scripts
+npm scripts are provided for starting development server. From within the root directory:
+
+Start Webpack:
+```sh
+npm run webpack
+```
+
+Start Server:
+```sh
+npm run server-test
+```

@@ -90,14 +90,14 @@ const authCheck = ({ username, password }, cb) => {
 };
 
 // Checks DB for duplcate favorite listings
-uniqueListingChecker = ({ username, favorite }, cb) => {
+uniqueListingChecker = ({ username, product }, cb) => {
   let dup = false;
 
   newUser.findOne({username: username}, (err, user) => {
     user.favorites.forEach((item) => {
       // MongoDB lacks Array Duplication Prevention
       // So we are going to use the url of our favorite objects
-      if (item.url === favorite.url) {
+      if (JSON.stringify(item.url) === JSON.stringify(product.url)) {
         dup = true;
       }
     });
@@ -106,11 +106,11 @@ uniqueListingChecker = ({ username, favorite }, cb) => {
 };
 
 // Insert new listing into DB
-insertFav = ({ username, favorite }, cb) => {
+insertFav = ({ username, product }, cb) => {
   newUser.findOneAndUpdate({
     username: username 
   }, {
-    $push: {favorites: favorite}
+    $push: {favorites: product}
   }, (err, user) => {
     if (err) { cb(err, null); }
     // user.favorites is array of favorites
@@ -119,12 +119,12 @@ insertFav = ({ username, favorite }, cb) => {
 };
 
 // Remove listing from DB
-removeFav = ({ username, favorite }, cb) => {
+removeFav = ({ username, product }, cb) => {
   newUser.update({
     username: username
   }, {
     // Remove favorites listing based on unique url
-    $pull: { favorites: { url: favorite.url } }
+    $pull: { favorites: { url: product.url } }
   }, (err, user) => {
     if (err) { cb(err, null); }
     cb(null, user);

@@ -29,6 +29,7 @@ export default class Login extends React.Component {
       .then((data) => {
         // Handle Token Persistance Here
         window.sessionStorage.token = data.data.token;
+        window.sessionStorage.username = this.state.username;
         this.props.history.push('/');
         alert(data.data.message);
       });

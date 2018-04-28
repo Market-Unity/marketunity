@@ -96,7 +96,15 @@ class App extends Component {
   }
 
   saveItem(product) {
+<<<<<<< HEAD
     axios.post('/saveitem', { product : product, token : window.sessionStorage.token })
+=======
+    axios.post('/saveitem', { 
+      username: window.sessionStorage.username, 
+      product: product, 
+      token: window.sessionStorage.token
+    })
+>>>>>>> beb761d2b8bf08d781b0f650564d1b0d76a10bb3
       .then((res) => {
         this.setState({
           favorites: res.data
@@ -105,7 +113,11 @@ class App extends Component {
   }
 
   unsaveItem(product) {
+<<<<<<< HEAD
     axios.post('/unsaveitem', { product : product, token : window.sessionStorage.token })
+=======
+    axios.post('/unsaveitem', { product: product })
+>>>>>>> beb761d2b8bf08d781b0f650564d1b0d76a10bb3
       .then((res) => {
         this.setState({
           favorites: res.data
