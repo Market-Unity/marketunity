@@ -97,7 +97,7 @@ uniqueListingChecker = ({ username, favorite }, cb) => {
     user.favorites.forEach((item) => {
       // MongoDB lacks Array Duplication Prevention
       // So we are going to use the url of our favorite objects
-      if (item.url === favorite.url) {
+      if (JSON.stringify(item.url) === JSON.stringify(favorite.url)) {
         dup = true;
       }
     });

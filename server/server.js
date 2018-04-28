@@ -118,17 +118,19 @@ app.get('/logout', function(req, res) {
 
 app.post('/saveitem', function(req, res) {
   let item = req.body;
-
+  
   helpers.verifyToken(item, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
     helpers.uniqueListingChecker(item, (isDuplicate) => {
       if (isDuplicate === true) {
         res.end('Item already favorites!');
+      } else {
+        helpers.insertFav(item, (err, data) => {
+          if (err) { res.end(err); }
+          console.log(data, '< ------ array of favorites')
+          res.end(JSON.stringify(data));
+        });
       }
-      helpers.insertFav(item, (err, data) => {
-        if (err) { res.end(err); }
-        res.end(JSON.stringify(data));
-      });
     });
   });
 
