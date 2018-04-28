@@ -117,8 +117,7 @@ app.get('/logout', function(req, res) {
 
 app.post('/saveitem', function(req, res) {
   let item = req.body;
-  console.log(item)
-  helpers.verifyToken(item, (err, data) => {
+  helpers.verifyToken(item.token, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
     helpers.uniqueListingChecker(item, (isDuplicate) => {
       if (isDuplicate === true) {
@@ -126,7 +125,6 @@ app.post('/saveitem', function(req, res) {
       } else {
         helpers.insertFav(item, (err, data) => {
           if (err) { res.end(err); }
-          console.log(data, '< ------ array of favorites')
           res.end(JSON.stringify(data));
         });
       }
@@ -158,7 +156,6 @@ app.post('/getfavorites', (req, res) => {
   let user = req.body.username;
   helpers.verifyToken(req.body.token, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
-    console.log(data);
     helpers.getFavs(user, (err, favArr) => {
       if (err) { res.end(JSON.stringify(err)); }
       res.end(JSON.stringify(favArr));

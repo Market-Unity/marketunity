@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Row, Col, CardHeader, Button, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import "./css/ProductList.css";
+import './css/ProductList.css';
 
 export default class FavoriteList extends React.Component {
   constructor(props) {
@@ -12,11 +12,10 @@ export default class FavoriteList extends React.Component {
   }
 
   onDismiss() {
-   this.setState({ visible: false });
+    this.setState({ visible: false });
   }
 
   render() {
-    console.log(this.props.favorites, 'within FavoriteList');
     return (
       <div>
         <CardHeader>
@@ -26,21 +25,21 @@ export default class FavoriteList extends React.Component {
         </CardHeader>
         {
           this.props.favorites.length > 0 ?
-                this.props.favorites.map((product) =>
-                <Card>
-                  <CardImg top width="100%" src={product.image} alt="Card image cap" />
-                  <CardBody>
-                    <CardTitle>{product.name}</CardTitle>
-                    <CardSubtitle>{product.price}</CardSubtitle>
-                    <CardText>{product.description}</CardText>
-                    <Button href={product.url} color="primary">Buy</Button>
-                  </CardBody>
-                </Card>
-              )
-                :
-              <Alert color="primary" isOpen={this.state.visible} toggle={this.onDismiss}>
+            this.props.favorites.map((product) =>
+              <Card>
+                <CardImg top width="100%" src={product.image} alt="Card image cap" />
+                <CardBody>
+                  <CardTitle>{product.name}</CardTitle>
+                  <CardSubtitle>{product.price}</CardSubtitle>
+                  <CardText>{product.description}</CardText>
+                  <Button href={product.url} color="primary">Buy</Button>
+                </CardBody>
+              </Card>
+            )
+            :
+            <Alert color="primary" isOpen={this.state.visible} toggle={this.onDismiss}>
                 Add some favorites!
-              </Alert>
+            </Alert>
         }
       </div>
     );
