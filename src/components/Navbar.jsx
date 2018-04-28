@@ -6,7 +6,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 import './css/Navbar.css';
 
 export default class NavigationBar extends React.Component {
@@ -40,7 +40,7 @@ export default class NavigationBar extends React.Component {
           </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              {this.state.session ? <NavLink onClick={this.displayLogout}>Logout</NavLink> : <NavLink tag={Link} to="/login">Login</NavLink>} 
+              {this.state.session ? <NavLink onClick={this.displayLogout}>Logout</NavLink> : <NavLink tag={Link} to="/login">Login</NavLink>}
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/signup">Sign Up</NavLink>
