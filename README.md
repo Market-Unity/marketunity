@@ -5,6 +5,7 @@ Armadillo Search is an open source web application that lists products from eBay
 ### Team
 - __Product Owner:__ Phillip
 - __Scrum Master:__ Amogh
+- __Lead Developer:__ Eric
 - __Software Engineering:__ Eric, Phillip, Amogh
 
 
@@ -18,16 +19,16 @@ Armadillo Search is an open source web application that lists products from eBay
 ## Development
 
 ### Best Buy API
-   Get Best Buy API key here: https://developer.bestbuy.com/
+   Get Best Buy API key [here.](https://developer.bestbuy.com/)
    
-   Test the Best Buy query here: https://bestbuyapis.github.io/bby-query-builder/#/productSearch
+   Test the Best Buy query [here.](https://bestbuyapis.github.io/bby-query-builder/#/productSearch)
 
 ### eBay API
-Register for an eBay developer account and request an API key here: https://developer.ebay.com/DevZone/account/
+Register for an eBay developer account and request an API key [here.](https://developer.ebay.com/DevZone/account/)
    
 For eBay, be sure to request a PRODUCTION API key. Sandbox will not work. The key needed is the App ID.
    
-Using the eBay npm package is the easiest way to make calls to the eBay API and receive JSON data refer to this page for more information: https://www.npmjs.com/package/ebay
+Using the eBay npm package is the easiest way to make calls to the eBay API and receive JSON data refer to [this page for more information.](https://www.npmjs.com/package/ebay)
 
 ### Save API Keys in separate file
    A file named "apiKeys.js" with the following schema should be added to the "server/searchHelpers/" directory. 
