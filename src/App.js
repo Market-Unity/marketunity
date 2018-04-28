@@ -96,7 +96,7 @@ class App extends Component {
   }
 
   saveItem(product) {
-    axios.post('/saveitem', { product : product })
+    axios.post('/saveitem', { product : product, token : window.sessionStorage.token })
       .then((res) => {
         this.setState({
           favorites: res.data
@@ -105,7 +105,7 @@ class App extends Component {
   }
 
   unsaveItem(product) {
-    axios.post('/unsaveitem', { product : product })
+    axios.post('/unsaveitem', { product : product, token : window.sessionStorage.token })
       .then((res) => {
         this.setState({
           favorites: res.data
