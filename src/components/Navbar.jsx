@@ -21,10 +21,11 @@ export default class NavigationBar extends React.Component {
   displayLogout() {
     console.log('Logged Out!');
     delete window.sessionStorage.token;
-    this.props.history.push("/");
+    this.props.history.push('/');
     this.setState({
       session: false
     });
+    alert('Logged Out!');
   }
 
   render() {

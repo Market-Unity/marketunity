@@ -75,27 +75,27 @@ app.post('/login', function(req, res) {
     username: req.body.username,
     password: req.body.password
   };
+
+  const body = {
+    message: '',
+    token: ''
+  };
   
   //function authenticates user
   helpers.authCheck(user, (err, data) => {
     if (err) { console.log(err); }
-    if (data === false) {
-
-      res.json({
-        message: 'Login failed. Invalid Username/Password.'
-      });
-
-      res.end();
+    console.log(data, '< _______________ is data in server')
+    if (!data) {
+      body.message = 'Login failed. Invalid Username/Password.'
+      res.end(JSON.stringify(body));
     }
     
     var token = jwt.sign(user.username, 'secretkey');
     
-    res.json({
-      message: 'Login Successful!',
-      token: token
-    });
-
-    res.end();
+    body.message = 'Login Successful!';
+    body.token = token;
+    
+    res.end(JSON.stringify(body));
 
   });
   
