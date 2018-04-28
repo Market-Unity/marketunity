@@ -57,10 +57,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if( window.sessionStorage.token) {
-      axios.post('/getfavorites', { username : window.sessionStorage.username, token : window.sessionStorage.token})
+    if ( window.sessionStorage.token) {
+      axios.post('/getfavorites', { username: window.sessionStorage.username, token: window.sessionStorage.token})
         .then((res) => {
-          console.log(res.data);
           this.setState({
             favorites: res.data
           });
@@ -105,9 +104,12 @@ class App extends Component {
       token: window.sessionStorage.token
     })
       .then((res) => {
-        this.setState({
-          favorites: res.data
-        });
+        axios.post('/getfavorites', { username: window.sessionStorage.username, token: window.sessionStorage.token })
+          .then((res) => {
+            this.setState({
+              favorites: res.data
+            });
+          });
       });
   }
 

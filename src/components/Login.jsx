@@ -31,6 +31,7 @@ export default class Login extends React.Component {
         window.sessionStorage.token = data.data.token;
         window.sessionStorage.username = this.state.username;
         this.props.history.push('/');
+        window.location.reload();
         alert(data.data.message);
       });
   }
