@@ -19,12 +19,12 @@ Armadillo Search is an open source web application that lists products from eBay
 ## Development
 
 ### Best Buy API
-   Get Best Buy API key [here.](https://developer.bestbuy.com/)
+[Get Best Buy API key](https://developer.bestbuy.com/)
    
-   Test the Best Buy query [here.](https://bestbuyapis.github.io/bby-query-builder/#/productSearch)
+[Test the Best Buy query](https://bestbuyapis.github.io/bby-query-builder/#/productSearch)
 
 ### eBay API
-Register for an eBay developer account and request an API key [here.](https://developer.ebay.com/DevZone/account/)
+[Register for an eBay developer account and request an API key](https://developer.ebay.com/DevZone/account/)
    
 For eBay, be sure to request a PRODUCTION API key. Sandbox will not work. The key needed is the App ID.
    
