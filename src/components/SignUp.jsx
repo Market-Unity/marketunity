@@ -30,11 +30,11 @@ export default class SignUp extends React.Component {
       .then((data) => {
         // Handle Success
         if (data.data) {
-          alert(data.message);
+          alert('Registration Successful. Please log in.');
           this.props.history.push('/login');
         } else {
           // Handle Failed Signin
-          alert(data.message);
+          alert('Email is already in use');
         }
       });
   }

@@ -33,7 +33,7 @@ export default class NavigationBar extends React.Component {
       <div>
         <Navbar color="light" light expand="md">
           <NavbarBrand tag={Link} to="/">
-            <img src="https://image.ibb.co/cvsaP7/logo.png" className="nav-logo" alt="Armadillo"></img>Market-Unity
+            <img src="https://image.ibb.co/cvsaP7/logo.png" className="nav-logo" alt="Armadillo"></img>Armadillo Search
           </NavbarBrand>
           <Nav className="mr-auto" navbar>
             <NavItem>
