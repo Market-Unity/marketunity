@@ -14,9 +14,15 @@ export default class Product extends React.Component {
   }
 
   starOnClick(e) {
-    this.setState({
-      starFilled: !this.state.starFilled
-    });
+    //if user is logged in aka if session exists
+    if (window.sessionStorage.token) {
+      //toggle the star animation
+      this.setState({
+        starFilled: !this.state.starFilled
+      });
+    } else {
+      alert('Please log in to add favorites');
+    }
   }
 
   render() {
