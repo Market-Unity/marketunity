@@ -95,6 +95,24 @@ class App extends Component {
     this.setState({ visible: 'block' });
   }
 
+  saveItem(product) {
+    axios.post('/saveitem', { product : product })
+      .then((res) => {
+        this.setState({
+          favorites: res.data
+        });
+      });
+  }
+
+  unsaveItem(product) {
+    axios.post('/unsaveitem', { product : product })
+      .then((res) => {
+        this.setState({
+          favorites: res.data
+        });
+      });
+  }
+
   render() {
     return (
       <div className="App">
