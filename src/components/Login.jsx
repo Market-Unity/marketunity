@@ -28,8 +28,9 @@ export default class Login extends React.Component {
     axios.post('/login', {username: this.state.username, password: this.state.password})
       .then((data) => {
         // Handle Token Persistance Here
-        window.sessionStorage.token = data.data.token;
-        alert(data.data.message);
+          window.sessionStorage.token = data.data.token;
+          this.props.history.push("/");
+          alert(data.data.message);
       });
   }
 
