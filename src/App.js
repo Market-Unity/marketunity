@@ -95,6 +95,24 @@ class App extends Component {
     this.setState({ visible: 'block' });
   }
 
+  saveItem(product) {
+    axios.post('/saveitem', { product : product })
+      .then((res) => {
+        this.setState({
+          favorites: res.data
+        });
+      });
+  }
+
+  unsaveItem(product) {
+    axios.post('/unsaveitem', { product : product })
+      .then((res) => {
+        this.setState({
+          favorites: res.data
+        });
+      });
+  }
+
   render() {
     return (
       <div className="App">
@@ -115,7 +133,8 @@ class App extends Component {
                   changeQueryState={this.changeQueryState.bind(this)}
                   sendQuery={this.sendQuery.bind(this)}>
                 </Search>
-                <ProductList sortItems = {this.sortItems.bind(this)} products = {this.state.products} onFavAlert = {this.onFavAlert.bind(this)}></ProductList>
+                <ProductList unsaveItem = {this.unsaveItem.bind(this)} saveItem = {this.saveItem.bind(this)} sortItems = {this.sortItems.bind(this)} products = {this.state.products} onFavAlert = {this.onFavAlert.bind(this)}>
+                </ProductList>
               </div>
             }/>
           </Switch>
