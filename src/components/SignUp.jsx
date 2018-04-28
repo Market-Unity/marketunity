@@ -30,15 +30,11 @@ export default class SignUp extends React.Component {
       .then((data) => {
         // Handle Success
         if (data.data) {
-          axios.post('/login', { username: this.state.username, password: this.state.password })
-            .then(({ data }) => {
-              // Handle Token Persistance Here
-              window.sessionStorage.token = data.data.token;
-              alert(data.message, 'successful login and register');
-            });
+          alert(data.message);
+          this.props.history.push('/login');
         } else {
           // Handle Failed Signin
-          alert(data.message, 'unsuccessful register');
+          alert(data.message);
         }
       });
   }
