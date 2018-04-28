@@ -7,7 +7,7 @@ import ProductList from './components/ProductList.jsx';
 import Product from './components/Product.jsx';
 import FavoriteList from './components/FavoriteList.jsx';
 import { Route, Switch } from 'react-router-dom';
-import {Container} from 'reactstrap';
+import {Alert, Container} from 'reactstrap';
 
 import axios from 'axios';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -49,8 +49,11 @@ class App extends Component {
           image: 'https://img.bbystatic.com/BestBuy_US/images/products/5887/5887123_sd.jpg',
           description: 'Android 7.0 Nougat4G LTE5" HD touch screenBluetooth'
         }
-      ]
+      ],
+      visible: true
     };
+
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   changeQueryState(event) {
@@ -84,10 +87,20 @@ class App extends Component {
       });
   }
 
+  onDismiss() {
+    this.setState({ visible: false });
+  }
+
+  onFavAlert() {
+    this.setState({ visible: 'block' });
+  }
 
   render() {
     return (
       <div className="App">
+        <Alert id= "favAlert" color="warning" isOpen={this.state.visible} toggle={this.onDismiss} style={{display: this.state.visible}}>
+          Please log in to add favorites
+        </Alert>
         <Navbar></Navbar>
         <Container>
           <Switch>
@@ -102,7 +115,7 @@ class App extends Component {
                   changeQueryState={this.changeQueryState.bind(this)}
                   sendQuery={this.sendQuery.bind(this)}>
                 </Search>
-                <ProductList sortItems = {this.sortItems.bind(this)} products = {this.state.products}></ProductList>
+                <ProductList sortItems = {this.sortItems.bind(this)} products = {this.state.products} onFavAlert = {this.onFavAlert.bind(this)}></ProductList>
               </div>
             }/>
           </Switch>

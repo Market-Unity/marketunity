@@ -1,8 +1,10 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row } from 'reactstrap';
+import { Alert, Card, CardImg, CardText, CardBody, CardHeader, CardTitle, CardSubtitle, Button, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row } from 'reactstrap';
 import './css/ProductList.css';
 import StarOutline from 'react-icons/lib/md/star-outline';
 import Star from 'react-icons/lib/md/star';
+import $ from 'jquery';
+
 
 
 export default class Product extends React.Component {
@@ -21,7 +23,8 @@ export default class Product extends React.Component {
         starFilled: !this.state.starFilled
       });
     } else {
-      alert('Please log in to add favorites');
+      //alert the user that they need to login
+      this.props.onFavAlert();
     }
   }
 
