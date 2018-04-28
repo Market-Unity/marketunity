@@ -1,5 +1,5 @@
 ## Armadillo Search ##
-Armadillo Search is an open source web application that lists products from eBay and Best Buy. Users can easily search for products, add them to a favorites list, and visit the webstore to purchase.
+Armadillo Search is an open source web application that lists products from eBay and Best Buy. Users can easily search for products, add them to a favorites list, and visit the website to purchase.
 
 
 ## Getting Started ##
