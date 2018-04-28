@@ -1,16 +1,14 @@
-## Armadillo Search ##
+## Armadillo Search 
 Armadillo Search is an open source web application that lists products from eBay and Best Buy. Users can easily search for products, add them to a favorites list, and visit the website to purchase.
 
 
-## Getting Started ##
-
-## Team ##
+### Team
 - __Product Owner:__ Phillip
 - __Scrum Master:__ Amogh
 - __Software Engineering:__ Eric, Phillip, Amogh
 
 
-## Requirements ##
+### Requirements
 - Node.js
 - Express
 - React
@@ -25,11 +23,11 @@ Armadillo Search is an open source web application that lists products from eBay
    Test the Best Buy query here: https://bestbuyapis.github.io/bby-query-builder/#/productSearch
 
 ### eBay API
-   Register for an eBay developer account and request an API key here: https://developer.ebay.com/DevZone/account/
+Register for an eBay developer account and request an API key here: https://developer.ebay.com/DevZone/account/
    
-   For eBay, be sure to request a PRODUCTION API key. Sandbox will not work. The key needed is the App ID.
+For eBay, be sure to request a PRODUCTION API key. Sandbox will not work. The key needed is the App ID.
    
-   Using the eBay npm package is the easiest way to make calls to the eBay API and receive JSON data refer to this page for more information: https://www.npmjs.com/package/ebay
+Using the eBay npm package is the easiest way to make calls to the eBay API and receive JSON data refer to this page for more information: https://www.npmjs.com/package/ebay
 
 ### Save API Keys in separate file
    A file named "apiKeys.js" with the following schema should be added to the "server/searchHelpers/" directory. 
@@ -42,8 +40,12 @@ module.exports = {
 ```
 
 ### Starting Database 
-   Install mongodb to your system if you have not already. Then run the command "mongod" in your terminal.
-   
+Install mongodb to your system if you have not already. Then run the following command in your terminal:
+
+```sh
+mongod
+```
+
 ### Installing Dependencies 
 
 From within the root directory:
