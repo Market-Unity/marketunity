@@ -40,11 +40,19 @@ export default class NavigationBar extends React.Component {
           </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              {this.state.session ? <NavLink onClick={this.displayLogout}>Logout</NavLink> : <NavLink tag={Link} to="/login">Login</NavLink>} 
+              {this.state.session ?
+                <NavLink onClick={this.displayLogout}>Logout</NavLink>
+                :
+                <NavLink tag={Link} to="/login">Login</NavLink>
+              } 
             </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/signup">Sign Up</NavLink>
-            </NavItem>
+            {this.state.session ? 
+              <div></div> 
+              : 
+              <NavItem>
+                <NavLink tag={Link} to="/signup">Sign Up</NavLink>
+              </NavItem>
+            }
           </Nav>
         </Navbar>
       </div>
