@@ -24,6 +24,7 @@ export default class NavigationBar extends React.Component {
     this.setState({
       session: false
     });
+    alert('Logged Out!');
   }
 
   render() {
