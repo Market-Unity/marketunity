@@ -7,13 +7,23 @@ export default class Search extends React.Component {
     super(props);
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.props.sendQuery();
+    }
+  }
+
   render() {
     return (
       <Form inline>
         <Col>
           <FormGroup>
             <Label for="search" hidden>Search</Label>
-            <Input type="search" name="Search" id="search" placeholder="Search" onChange={this.props.changeQueryState}/>
+            <Input type="search" name="Search" id="search" placeholder="Search" 
+              onChange={this.props.changeQueryState}
+              onKeyPress={this.handleKeyPress.bind(this)}  
+            />
           </FormGroup>
         </Col>
         {' '}
