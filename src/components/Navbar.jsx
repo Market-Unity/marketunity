@@ -45,7 +45,7 @@ export default class NavigationBar extends React.Component {
               {this.state.session ? <NavLink onClick={this.displayLogout} tag={Link} to="/">Logout</NavLink> : <NavLink tag={Link} to="/login">Login</NavLink>}
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/signup">Sign Up</NavLink>
+              {this.state.session ? <div></div> : <NavLink tag={Link} to="/signup">Sign Up</NavLink>}
             </NavItem>
           </Nav>
         </Navbar>
