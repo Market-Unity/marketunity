@@ -9,7 +9,7 @@ const register = ({ username, password }, cb) => {
   // Checks if username is taken
   let hold = JSON.stringify(userAvailable(username, (err, available) => {
     if (err) { console.log('Error in Mongo Find func', err); }
-        
+
     if (available === true) {
       // Hashing Password
       hashPass(password, (err, hash) => {
@@ -42,7 +42,7 @@ const userAvailable = (username, cb) => {
   }, (err, data) => {
     if (err) { cb(err, null); }
     if (JSON.stringify(data) === '[]') {
-      data = true; 
+      data = true;
     } else {
       hash = data[0].password;
       data = false;
@@ -62,7 +62,7 @@ const hashPass = (password, cb) => {
 };
 
 
-// Authenticate Passwords. Will return boolean. 
+// Authenticate Passwords. Will return boolean.
 const authCheck = ({ username, password }, cb) => {
   let dbHash = '';
   let passHash = '';
@@ -70,15 +70,15 @@ const authCheck = ({ username, password }, cb) => {
 
   // If User Exist, Get Hash
   userAvailable(username, (err, data, hash) => {
-    if (err) { 
-      err = 'Username does not exist!'; 
+    if (err) {
+      err = 'Username does not exist!';
       cb(err, null);
     }
 
     dbHash = hash;
 
     bcrypt.compare(password, dbHash, (err, result) => {
-      if (err) { 
+      if (err) {
         console.log('There was a hashing error: ', err);
         cb(err, null);
       }
@@ -108,7 +108,7 @@ uniqueListingChecker = ({ username, product }, cb) => {
 // Insert new listing into DB
 insertFav = ({ username, product }, cb) => {
   newUser.findOneAndUpdate({
-    username: username 
+    username: username
   }, {
     $push: {favorites: product}
   }, (err, user) => {
@@ -132,7 +132,7 @@ removeFav = ({ username, product }, cb) => {
 };
 
 // Verifys that user token is valid
-verifyToken = ({ token }, cb) => {
+verifyToken = (token, cb) => {
   jwt.verify(token, 'secretkey', function (err, data) {
     if (err) { cb(err, null); }
     cb(null, data);

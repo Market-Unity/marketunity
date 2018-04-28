@@ -56,6 +56,18 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
   }
 
+  componentDidMount() {
+    if( window.sessionStorage.token) {
+      axios.post('/getfavorites', { username : window.sessionStorage.username, token : window.sessionStorage.token})
+        .then((res) => {
+          console.log(res.data);
+          this.setState({
+            favorites: res.data
+          });
+        });
+    }
+  }
+
   changeQueryState(event) {
     event.preventDefault;
     this.setState({
@@ -78,15 +90,6 @@ class App extends Component {
     });
   }
 
-  getFavorites() {
-    axios.get('/favorites')
-      .then((res) => {
-        this.setState({
-          favorites: res.data
-        });
-      });
-  }
-
   onDismiss() {
     this.setState({ visible: false });
   }
@@ -96,15 +99,11 @@ class App extends Component {
   }
 
   saveItem(product) {
-<<<<<<< HEAD
-    axios.post('/saveitem', { product : product, token : window.sessionStorage.token })
-=======
-    axios.post('/saveitem', { 
-      username: window.sessionStorage.username, 
-      product: product, 
+    axios.post('/saveitem', {
+      username: window.sessionStorage.username,
+      product: product,
       token: window.sessionStorage.token
     })
->>>>>>> beb761d2b8bf08d781b0f650564d1b0d76a10bb3
       .then((res) => {
         this.setState({
           favorites: res.data
@@ -113,11 +112,7 @@ class App extends Component {
   }
 
   unsaveItem(product) {
-<<<<<<< HEAD
-    axios.post('/unsaveitem', { product : product, token : window.sessionStorage.token })
-=======
     axios.post('/unsaveitem', { product: product })
->>>>>>> beb761d2b8bf08d781b0f650564d1b0d76a10bb3
       .then((res) => {
         this.setState({
           favorites: res.data

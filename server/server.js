@@ -60,7 +60,7 @@ app.post('/register', function(req, res) {
       res.end(JSON.stringify(successfulRegister));
     }
   });
-  
+
 });
 
 /***********************************************************************/
@@ -68,7 +68,7 @@ app.post('/register', function(req, res) {
 /***********************************************************************/
 
 app.post('/login', function(req, res) {
-  
+
   //user object is assembled from request body
   const user = {
     username: req.body.username,
@@ -79,7 +79,7 @@ app.post('/login', function(req, res) {
     message: '',
     token: ''
   };
-  
+
   //function authenticates user
   helpers.authCheck(user, (err, data) => {
     if (err) { console.log(err); }
@@ -87,16 +87,16 @@ app.post('/login', function(req, res) {
       body.message = 'Login failed. Invalid Username/Password.'
       res.end(JSON.stringify(body));
     }
-    
+
     var token = jwt.sign(user.username, 'secretkey');
-    
+
     body.message = 'Login Successful!';
     body.token = token;
-    
+
     res.end(JSON.stringify(body));
 
   });
-  
+
 });
 
 
@@ -108,7 +108,7 @@ app.post('/login', function(req, res) {
 app.get('/logout', function(req, res) {
   //destroy session function
 
-  res.redirect('/'); 
+  res.redirect('/');
 });
 
 /***********************************************************************/
@@ -155,9 +155,10 @@ app.post('/unsaveitem', function (req, res) {
 });
 
 app.post('/getfavorites', (req, res) => {
-  let user = req.body.username
-  helpers.verifyToken(req.headers, (err, data) => {
+  let user = req.body.username;
+  helpers.verifyToken(req.body.token, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
+    console.log(data);
     helpers.getFavs(user, (err, favArr) => {
       if (err) { res.end(JSON.stringify(err)); }
       res.end(JSON.stringify(favArr));
@@ -171,5 +172,5 @@ app.post('/getfavorites', (req, res) => {
 /***********************************************************************/
 
 app.get('/*', function (req, res) {
-  res.redirect('/');  
+  res.redirect('/');
 });
