@@ -21,6 +21,7 @@ export default class NavigationBar extends React.Component {
   displayLogout() {
     console.log('Logged Out!');
     delete window.sessionStorage.token;
+    this.props.history.push("/");
     this.setState({
       session: false
     });
@@ -36,24 +37,24 @@ export default class NavigationBar extends React.Component {
           </NavbarBrand>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/favorites">Favorites</NavLink>
+              {this.state.session ? <NavLink tag={Link} to="/favorites">Favorites</NavLink> : <NavLink tag={Link} to="/login">Favorites</NavLink>}
             </NavItem>
           </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem>
+<<<<<<< HEAD
               {this.state.session ?
                 <NavLink onClick={this.displayLogout}>Logout</NavLink>
                 :
                 <NavLink tag={Link} to="/login">Login</NavLink>
               } 
+=======
+              {this.state.session ? <NavLink onClick={this.displayLogout} tag={Link} to="/">Logout</NavLink> : <NavLink tag={Link} to="/login">Login</NavLink>}
             </NavItem>
-            {this.state.session ? 
-              <div></div> 
-              : 
-              <NavItem>
-                <NavLink tag={Link} to="/signup">Sign Up</NavLink>
-              </NavItem>
-            }
+            <NavItem>
+              <NavLink tag={Link} to="/signup">Sign Up</NavLink>
+>>>>>>> 7abee262654cc0b7ff797d1581ac737e769de86f
+            </NavItem>
           </Nav>
         </Navbar>
       </div>
