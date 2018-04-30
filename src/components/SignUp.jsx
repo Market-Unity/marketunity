@@ -35,6 +35,7 @@ export default class SignUp extends React.Component {
         } else {
           // Handle Failed Signin
           alert('Email is already in use');
+          console.log('dlete this messag eon 38 of signup.jsx');
         }
       });
   }
