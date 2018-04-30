@@ -139,14 +139,14 @@ app.post('/saveitem', function(req, res) {
 /***********************************************************************/
 
 app.post('/unsaveitem', function (req, res) {
-  let item = req.body.product;
-  let username = req.body.username;
 
-  helpers.verifyToken(req.headers, (err, data) => {
+  //verify token takes a token and a callback
+  helpers.verifyToken(req.body.token, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
-    helpers.removeFav(username, item, (err, favArr) => {
+
+    //remove favorite takes a username, a item/product and a callback
+    helpers.removeFav(req.body.username, req.body.product, (err, favArr) => {
       if (err) { res.end(err); }
-      console.log(favArr, '<--- should be favorites arr');
       res.end(JSON.stringify(favArr));
     });
   });
@@ -154,14 +154,24 @@ app.post('/unsaveitem', function (req, res) {
   //send array of saved items from the db back to the client
 });
 
+/***********************************************************************/
+/*********************** Get Favorites Route ***************************/
+/***********************************************************************/
+
 app.post('/getfavorites', (req, res) => {
   let user = req.body.username;
   helpers.verifyToken(req.body.token, (err, data) => {
-    if (err) { res.end(JSON.stringify(err)); }
-    helpers.getFavs(user, (err, favArr) => {
-      if (err) { res.end(JSON.stringify(err)); }
-      res.end(JSON.stringify(favArr));
-    });
+    if (err) { 
+      res.end(JSON.stringify(err));
+    } else {
+      helpers.getFavs(user, (err, favArr) => {
+        if (err) { 
+          res.end(JSON.stringify(err));
+        } else {
+          res.end(JSON.stringify(favArr));
+        }
+      });
+    }
   });
 });
 

@@ -12,24 +12,27 @@ export default class Product extends React.Component {
     super(props);
     this.state = {
       starFilled: false,
-      favoritesString: this.props.favorites.map((obj) => { return JSON.stringify(obj); })
     };
     this.starOnClick = this.starOnClick.bind(this);
   }
 
   componentDidMount() {
     this.starAutoFill(this.props.product);
-    console.log(this.props.favorites);
   }
 
   //on render, checks to see if the item object stringified is in favoritesString 
   //(this is an array of all items stringified) if so, it completes the star animation
   //Within the favorites list, all items will be stared. In the product list, it depends on item
   starAutoFill(obj) {
-    if (this.state.favoritesString.indexOf(JSON.stringify(obj)) !== -1) {
-      this.setState({
-        starFilled: true
+    if (window.sessionStorage.token) {
+      let stringifiedArr = this.props.favorites.map((product) => {
+        return JSON.stringify(product);
       });
+      if (stringifiedArr.indexOf(JSON.stringify(obj)) !== -1) {
+        this.setState({
+          starFilled: true
+        });
+      }
     }
   }
 

@@ -145,8 +145,11 @@ const verifyToken = (token, cb) => {
 // Gets complete user favorites array with no input required
 const getFavs = (username, cb) => {
   newUser.findOne({username: username}, (err, user) => {
-    if (err) { cb(err, null); }
-    cb(null, user.favorites);
+    if (err) {
+      cb(err, null); 
+    } else {
+      cb(null, user.favorites);
+    }
   });
 };
 

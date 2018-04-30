@@ -57,6 +57,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getFavorites();
+  }
+  
+  getFavorites() {
     if ( window.sessionStorage.token) {
       axios.post('/getfavorites', { username: window.sessionStorage.username, token: window.sessionStorage.token})
         .then((res) => {
@@ -114,7 +118,7 @@ class App extends Component {
   }
 
   unsaveItem(product) {
-    axios.post('/unsaveitem', { product: product, username: window.sessionStorage.username})
+    axios.post('/unsaveitem', { product: product, username: window.sessionStorage.username, token: window.sessionStorage.token })
       .then((res) => {
         this.setState({
           favorites: res.data
