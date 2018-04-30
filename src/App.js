@@ -50,7 +50,7 @@ class App extends Component {
           description: 'Android 7.0 Nougat4G LTE5" HD touch screenBluetooth'
         }
       ],
-      visible: true
+      visible: true,
     };
 
     this.onDismiss = this.onDismiss.bind(this);
@@ -131,8 +131,8 @@ class App extends Component {
         <Navbar></Navbar>
         <Container>
           <Switch>
-            <Route path='/login' component={Login}/>
-            <Route path='/signup' component={SignUp}/>
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={SignUp} />
             <Route path='/favorites/' render = {(props) =>
               <FavoriteList favorites = {this.state.favorites}></FavoriteList>
             }/>

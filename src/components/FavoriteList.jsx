@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert, Row, Col, CardHeader, Button, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import './css/ProductList.css';
+import Product from './Product.jsx';
 
 export default class FavoriteList extends React.Component {
   constructor(props) {
@@ -25,17 +26,9 @@ export default class FavoriteList extends React.Component {
         </CardHeader>
         {
           this.props.favorites.length > 0 ?
-            this.props.favorites.map((product) =>
-              <Card>
-                <CardImg top width="100%" src={product.image} alt="Card image cap" />
-                <CardBody>
-                  <CardTitle>{product.name}</CardTitle>
-                  <CardSubtitle>{product.price}</CardSubtitle>
-                  <CardText>{product.description}</CardText>
-                  <Button href={product.url} color="primary">Buy</Button>
-                </CardBody>
-              </Card>
-            )
+            this.props.favorites.map((product) => {
+              return <Product unsaveItem={this.props.unsaveItem} saveItem={this.props.saveItem} onFavAlert={this.props.onFavAlert} product={product} />;
+            })
             :
             <Alert color="primary" isOpen={this.state.visible} toggle={this.onDismiss}>
                 Add some favorites!
