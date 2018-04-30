@@ -114,11 +114,13 @@ class App extends Component {
   }
 
   unsaveItem(product) {
-    axios.post('/unsaveitem', { product: product })
+    axios.post('/unsaveitem', { product: product, username: window.sessionStorage.username})
       .then((res) => {
         this.setState({
           favorites: res.data
         });
+      }).catch((err) => {
+        console.log(err); 
       });
   }
 
@@ -134,7 +136,7 @@ class App extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={SignUp} />
             <Route path='/favorites/' render = {(props) =>
-              <FavoriteList favorites = {this.state.favorites}></FavoriteList>
+              <FavoriteList favorites={this.state.favorites} unsaveItem={this.unsaveItem.bind(this)} saveItem={this.saveItem.bind(this)}></FavoriteList>
             }/>
             <Route path='/' render = {(props) =>
               <div>

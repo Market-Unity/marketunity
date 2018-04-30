@@ -19,12 +19,14 @@ export default class Product extends React.Component {
 
   componentDidMount() {
     this.starAutoFill(this.props.product);
+    console.log(this.props.favorites);
   }
 
-  //on render, checks to see if the item's url is  in favoritesURL (this is an array of all
-  //urls in the favorites basically acting as the primary key) if so, it completes the star animation
-  starAutoFill(url) {
-    if (this.state.favoritesString.indexOf(JSON.stringify(url)) !== -1) {
+  //on render, checks to see if the item object stringified is in favoritesString 
+  //(this is an array of all items stringified) if so, it completes the star animation
+  //Within the favorites list, all items will be stared. In the product list, it depends on item
+  starAutoFill(obj) {
+    if (this.state.favoritesString.indexOf(JSON.stringify(obj)) !== -1) {
       this.setState({
         starFilled: true
       });
@@ -34,11 +36,23 @@ export default class Product extends React.Component {
   starOnClick(product) {
     //if user is logged in aka if session exists
     if (window.sessionStorage.token) {
-      //toggle the star animation
-      this.setState({
-        starFilled: !this.state.starFilled
-      });
-      this.props.saveItem(product);
+      //if the item has already been saved
+      if (this.state.starFilled) {  
+        //unsave
+        this.props.unsaveItem(product);
+        //changes star to unfilled
+        this.setState({
+          starFilled: false
+        });
+      } else {
+        //save
+        this.props.saveItem(product);
+        //change star to filled
+        this.setState({
+          starFilled: true
+        });
+      }
+      
     } else {
       //alert the user that they need to login
       this.props.onFavAlert();

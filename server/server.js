@@ -139,13 +139,15 @@ app.post('/saveitem', function(req, res) {
 /***********************************************************************/
 
 app.post('/unsaveitem', function (req, res) {
-  let item = req.body;
+  let item = req.body.product;
+  let username = req.body.username;
 
   helpers.verifyToken(req.headers, (err, data) => {
     if (err) { res.end(JSON.stringify(err)); }
-    helpers.removeFav(item, (err, data) => {
+    helpers.removeFav(username, item, (err, favArr) => {
       if (err) { res.end(err); }
-      res.end(JSON.stringify(data));
+      console.log(favArr, '<--- should be favorites arr');
+      res.end(JSON.stringify(favArr));
     });
   });
 
