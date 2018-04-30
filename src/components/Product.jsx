@@ -11,19 +11,51 @@ export default class Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      starFilled: false
+      starFilled: false,
     };
     this.starOnClick = this.starOnClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.starAutoFill(this.props.product);
+  }
+
+  //on render, checks to see if the item object stringified is in favoritesString 
+  //(this is an array of all items stringified) if so, it completes the star animation
+  //Within the favorites list, all items will be stared. In the product list, it depends on item
+  starAutoFill(obj) {
+    if (window.sessionStorage.token) {
+      let stringifiedArr = this.props.favorites.map((product) => {
+        return JSON.stringify(product);
+      });
+      if (stringifiedArr.indexOf(JSON.stringify(obj)) !== -1) {
+        this.setState({
+          starFilled: true
+        });
+      }
+    }
   }
 
   starOnClick(product) {
     //if user is logged in aka if session exists
     if (window.sessionStorage.token) {
-      //toggle the star animation
-      this.setState({
-        starFilled: !this.state.starFilled
-      });
-      this.props.saveItem(product);
+      //if the item has already been saved
+      if (this.state.starFilled) {  
+        //unsave
+        this.props.unsaveItem(product);
+        //changes star to unfilled
+        this.setState({
+          starFilled: false
+        });
+      } else {
+        //save
+        this.props.saveItem(product);
+        //change star to filled
+        this.setState({
+          starFilled: true
+        });
+      }
+      
     } else {
       //alert the user that they need to login
       this.props.onFavAlert();

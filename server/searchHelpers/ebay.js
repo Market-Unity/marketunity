@@ -70,18 +70,25 @@ module.exports = function(searchString) {
         //data is the API response in the form of an object
         //the line below accesses the array of items from the data object received
         let items = data.findItemsByKeywordsResponse[0].searchResult[0].item;
+        
+        //create results variable to return. This will change if items variable is valid
+        let results = [];
 
+        //sometimes, the results returned are invalid. This condition checks to see that
+        //if so, map the items as per the plan. If not, return an empty array
+        if (items) {
         //takes the above array and returns an array of items 
         //refactored to our data structure schema
-        let results = items.map(item => {
-          return {
-            name: item.title[0],
-            url: item.viewItemURL[0],
-            price: ebayPriceFormat('$' + item.sellingStatus[0].currentPrice[0].__value__),
-            image: nullImage(item.galleryURL),
-            description: descriptionChecker(item.condition)
-          };
-        });
+          results = items.map(item => {
+            return {
+              name: item.title[0],
+              url: item.viewItemURL[0],
+              price: ebayPriceFormat('$' + item.sellingStatus[0].currentPrice[0].__value__),
+              image: nullImage(item.galleryURL),
+              description: descriptionChecker(item.condition)
+            };
+          });
+        }
 
         //fulfills the promise with the refactored array of items
         resolve(results);

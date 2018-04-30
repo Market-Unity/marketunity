@@ -22,9 +22,16 @@ export default class Login extends React.Component {
     });
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.handleSubmit();
+    }
+  }
+
   //Submit the login credentials to the server for verification
   handleSubmit(un, pw) {
-    //POST Request to login route, using axios
+    //POST Request to login route, using axioss
     axios.post('/login', {username: this.state.username, password: this.state.password})
       .then((data) => {
         // Handle Token Persistance Here
@@ -42,10 +49,10 @@ export default class Login extends React.Component {
       <Form>
         <FormGroup>
           <Label for="exampleEmail">Login</Label>
-          <Input type="email" name="email" id="username" placeholder="Email" onChange={this.handleChange}/>
+          <Input type="email" name="email" id="username" placeholder="Email" onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)}/>
         </FormGroup>
         <FormGroup>
-          <Input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange}/>
+          <Input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)}/>
         </FormGroup>
         <Button color="primary" onClick={() => { this.handleSubmit(this.state.username, this.state.password); } }>Submit</Button>
       </Form>

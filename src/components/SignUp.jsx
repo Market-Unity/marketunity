@@ -23,6 +23,13 @@ export default class SignUp extends React.Component {
     });
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.handleSubmit();
+    }
+  }
+
   //Submit the login credentials to the server for verification
   handleSubmit(un, pw) {
     //POST Request to login route, using axios
@@ -30,8 +37,18 @@ export default class SignUp extends React.Component {
       .then((data) => {
         // Handle Success
         if (data.data) {
-          alert('Registration Successful. Please log in.');
-          this.props.history.push('/login');
+
+          //if registration succeeds, log the user in
+          axios.post('/login', { username: this.state.username, password: this.state.password })
+            .then((data) => {
+              // Handle Token Persistance Here
+              window.sessionStorage.token = data.data.token;
+              window.sessionStorage.username = this.state.username;
+              this.props.history.push('/');
+              window.location.reload();
+              alert('Registration Succesful. You are now logged in.');
+            });
+
         } else {
           // Handle Failed Signin
           alert('Email is already in use');
@@ -45,10 +62,10 @@ export default class SignUp extends React.Component {
       <Form>
         <FormGroup>
           <Label for="exampleEmail">Register</Label>
-          <Input type="email" name="email" id="username" placeholder="Email" onChange={this.handleChange}/>
+          <Input type="email" name="email" id="username" placeholder="Email" onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)} />
         </FormGroup>
         <FormGroup>
-          <Input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange}/>
+          <Input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} onKeyPress={this.handleKeyPress.bind(this)} />
         </FormGroup>
         <Button color="primary" onClick={() => { this.handleSubmit(this.state.username, this.state.password); }}>Submit</Button>
       </Form>

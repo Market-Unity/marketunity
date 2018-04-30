@@ -90,7 +90,7 @@ const authCheck = ({ username, password }, cb) => {
 };
 
 // Checks DB for duplcate favorite listings
-uniqueListingChecker = ({ username, product }, cb) => {
+const uniqueListingChecker = ({ username, product }, cb) => {
   let dup = false;
 
   newUser.findOne({username: username}, (err, user) => {
@@ -106,7 +106,7 @@ uniqueListingChecker = ({ username, product }, cb) => {
 };
 
 // Insert new listing into DB
-insertFav = ({ username, product }, cb) => {
+const insertFav = ({ username, product }, cb) => {
   newUser.findOneAndUpdate({
     username: username
   }, {
@@ -119,20 +119,23 @@ insertFav = ({ username, product }, cb) => {
 };
 
 // Remove listing from DB
-removeFav = ({ username, product }, cb) => {
+const removeFav = (username, product, cb) => {
   newUser.update({
     username: username
   }, {
     // Remove favorites listing based on unique url
     $pull: { favorites: { url: product.url } }
-  }, (err, user) => {
-    if (err) { cb(err, null); }
-    cb(null, user);
+  }, (err) => {
+    if (err) {
+      cb(err, null); 
+    } else {
+      getFavs(username, cb);
+    }
   });
 };
 
 // Verifys that user token is valid
-verifyToken = (token, cb) => {
+const verifyToken = (token, cb) => {
   jwt.verify(token, 'secretkey', function (err, data) {
     if (err) { cb(err, null); }
     cb(null, data);
@@ -140,10 +143,13 @@ verifyToken = (token, cb) => {
 };
 
 // Gets complete user favorites array with no input required
-getFavs = (username, cb) => {
+const getFavs = (username, cb) => {
   newUser.findOne({username: username}, (err, user) => {
-    if (err) { cb(err, null); }
-    cb(null, user.favorites);
+    if (err) {
+      cb(err, null); 
+    } else {
+      cb(null, user.favorites);
+    }
   });
 };
 
