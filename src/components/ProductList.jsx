@@ -39,8 +39,10 @@ export default class ProductList extends React.Component {
             <Col xs="6"><Button size="sm" onClick={this.buttonOnClick.bind(this)}>{this.state.sortButtonName}</Button></Col>
           </Row>
         </CardHeader>
-        {
-          this.props.products.map((product) => {
+        {JSON.stringify(this.props.products) === '[]' ? //if the array is empty
+          <h3>Search to see results from eBay and BestBuy!</h3> //show this prompt
+          : 
+          this.props.products.map((product) => { //else display results
             return <Product favorites={this.props.favorites} unsaveItem = {this.props.unsaveItem} saveItem = {this.props.saveItem} onFavAlert = {this.props.onFavAlert} product={product}/>;
           })
         }
