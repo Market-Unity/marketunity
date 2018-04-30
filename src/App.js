@@ -142,7 +142,7 @@ class App extends Component {
                   changeQueryState={this.changeQueryState.bind(this)}
                   sendQuery={this.sendQuery.bind(this)}>
                 </Search>
-                <ProductList unsaveItem = {this.unsaveItem.bind(this)} saveItem = {this.saveItem.bind(this)} sortItems = {this.sortItems.bind(this)} products = {this.state.products} onFavAlert = {this.onFavAlert.bind(this)}>
+                <ProductList favorites={this.state.favorites} unsaveItem = {this.unsaveItem.bind(this)} saveItem = {this.saveItem.bind(this)} sortItems = {this.sortItems.bind(this)} products = {this.state.products} onFavAlert = {this.onFavAlert.bind(this)}>
                 </ProductList>
               </div>
             }/>

@@ -11,9 +11,24 @@ export default class Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      starFilled: false
+      starFilled: false,
+      favoritesString: this.props.favorites.map((obj) => { return JSON.stringify(obj); })
     };
     this.starOnClick = this.starOnClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.starAutoFill(this.props.product);
+  }
+
+  //on render, checks to see if the item's url is  in favoritesURL (this is an array of all
+  //urls in the favorites basically acting as the primary key) if so, it completes the star animation
+  starAutoFill(url) {
+    if (this.state.favoritesString.indexOf(JSON.stringify(url)) !== -1) {
+      this.setState({
+        starFilled: true
+      });
+    }
   }
 
   starOnClick(product) {

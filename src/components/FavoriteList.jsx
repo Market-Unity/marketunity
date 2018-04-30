@@ -7,7 +7,8 @@ export default class FavoriteList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true
+      visible: true,
+      favorites: this.props.favorites
     };
     this.onDismiss = this.onDismiss.bind(this);
   }
@@ -27,7 +28,7 @@ export default class FavoriteList extends React.Component {
         {
           this.props.favorites.length > 0 ?
             this.props.favorites.map((product) => {
-              return <Product unsaveItem={this.props.unsaveItem} saveItem={this.props.saveItem} onFavAlert={this.props.onFavAlert} product={product} />;
+              return <Product favorites={this.state.favorites} unsaveItem={this.props.unsaveItem} saveItem={this.props.saveItem} onFavAlert={this.props.onFavAlert} product={product} />;
             })
             :
             <Alert color="primary" isOpen={this.state.visible} toggle={this.onDismiss}>
