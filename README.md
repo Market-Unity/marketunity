@@ -3,9 +3,9 @@ Armadillo Search is an open source web application that lists products from eBay
 
 
 ### Team
-- __Product Owner:__ Phillip
-- __Scrum Master:__ Amogh
-- __Lead Developer:__ Eric
+- __Product Owner:__ [Phillip](https://github.com/th0s)
+- __Scrum Master:__ [Amogh](https://github.com/akambale)
+- __Lead Developer:__ [Eric](https://github.com/erichoonpark)
 - __Software Engineering:__ Eric, Phillip, Amogh
 
 
