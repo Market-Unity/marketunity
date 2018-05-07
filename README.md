@@ -66,5 +66,13 @@ npm run webpack
 
 Start Server:
 ```sh
-npm run server-test
+npm start
 ```
+
+
+
+## Routes Diagrams
+
+![Alt text](https://github.com/Market-Unity/marketunity/blob/master/Routes.png?raw=true)
+
+![Alt text](https://github.com/Market-Unity/marketunity/blob/master/Routes2.png?raw=true)
