@@ -1,7 +1,7 @@
-## [Armadillo Search](https://damp-badlands-35259.herokuapp.com/)
+## [Armadillo Search](https://armadillo-search.herokuapp.com/)
 Armadillo Search is an open source web application that lists products from eBay and Best Buy. Users can easily search for products, add them to a favorites list, and visit the website to purchase.
 
-### [Live App](https://damp-badlands-35259.herokuapp.com/) 
+### [Live App](https://armadillo-search.herokuapp.com/) 
 
 ### Team
 - __Product Owner:__ [Phillip](https://github.com/th0s)
